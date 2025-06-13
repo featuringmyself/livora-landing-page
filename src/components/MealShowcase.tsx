@@ -61,11 +61,11 @@ const MealShowcase = () => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Curated for Your <span className="text-green-600">Health Goals</span>
+        <div className="text-center mb-16 animate-fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 hover:scale-105 transition-transform duration-300">
+            Curated for Your <span className="text-gradient animate-pulse">Health Goals</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto hover:text-gray-700 transition-colors duration-300">
             Every meal is crafted by nutritionists and powered by AI to match your specific dietary needs, 
             preferences, and health objectives.
           </p>
@@ -75,39 +75,41 @@ const MealShowcase = () => {
           {meals.map((meal, index) => (
             <div 
               key={meal.id} 
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover-scale"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group hover-lift cursor-pointer animate-scale-in"
+              style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <div className="relative">
+              <div className="relative overflow-hidden">
                 <img 
                   src={meal.image} 
                   alt={meal.name}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                   {meal.category}
                 </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-green-400/20 to-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
               
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{meal.name}</h3>
-                <p className="text-gray-600 mb-4 text-sm">{meal.description}</p>
+              <div className="p-6 transform group-hover:-translate-y-1 transition-transform duration-300">
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors duration-300">{meal.name}</h3>
+                <p className="text-gray-600 mb-4 text-sm group-hover:text-gray-700 transition-colors duration-300">{meal.description}</p>
                 
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-gray-50 rounded-lg p-4 group-hover:bg-green-50 transition-colors duration-300">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm font-medium text-gray-700">Nutrition Info</span>
-                    <span className="text-lg font-bold text-green-600">{meal.calories} cal</span>
+                    <span className="text-lg font-bold text-green-600 group-hover:scale-110 transition-transform duration-300">{meal.calories} cal</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-sm">
-                    <div className="text-center">
+                    <div className="text-center transform group-hover:scale-105 transition-transform duration-300 delay-75">
                       <div className="font-semibold text-gray-900">{meal.protein}</div>
                       <div className="text-gray-500">Protein</div>
                     </div>
-                    <div className="text-center">
+                    <div className="text-center transform group-hover:scale-105 transition-transform duration-300 delay-100">
                       <div className="font-semibold text-gray-900">{meal.carbs}</div>
                       <div className="text-gray-500">Carbs</div>
                     </div>
-                    <div className="text-center">
+                    <div className="text-center transform group-hover:scale-105 transition-transform duration-300 delay-125">
                       <div className="font-semibold text-gray-900">{meal.fat}</div>
                       <div className="text-gray-500">Fat</div>
                     </div>
@@ -118,8 +120,8 @@ const MealShowcase = () => {
           ))}
         </div>
 
-        <div className="text-center">
-          <p className="text-gray-600 text-lg">
+        <div className="text-center animate-fade-in">
+          <p className="text-gray-600 text-lg hover:text-green-600 transition-colors duration-300 cursor-default">
             And many more personalized options tailored just for you...
           </p>
         </div>

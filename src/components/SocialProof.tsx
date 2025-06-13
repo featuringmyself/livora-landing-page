@@ -1,63 +1,73 @@
 
+import { Play, Instagram, Heart } from "lucide-react";
+
 const SocialProof = () => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            See Our Community in <span className="text-green-600">Action</span>
+        <div className="text-center mb-16 animate-fade-in-up">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-100 to-purple-100 rounded-full mb-6 animate-float">
+            <Instagram className="w-8 h-8 text-pink-600 animate-pulse" />
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 hover:scale-105 transition-transform duration-300">
+            See Our Community in <span className="text-gradient">Action</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto hover:text-gray-700 transition-colors duration-300">
             Join thousands of health enthusiasts who are already transforming their lives with Livora.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Instagram Reel Placeholders */}
-          <div className="bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl aspect-[9/16] relative overflow-hidden">
+          {/* Instagram Reel Placeholders with enhanced animations */}
+          <div className="bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl aspect-[9/16] relative overflow-hidden group cursor-pointer hover-lift animate-scale-in">
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 mx-auto shadow-lg">
-                  <div className="w-0 h-0 border-l-[10px] border-l-pink-500 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1"></div>
+              <div className="text-center transform group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 mx-auto shadow-lg group-hover:shadow-xl transition-all duration-300 animate-float">
+                  <Play className="w-6 h-6 text-pink-500 ml-1 group-hover:text-pink-600 transition-colors duration-300" />
                 </div>
-                <p className="text-gray-700 font-medium">Instagram Reel</p>
-                <p className="text-gray-500 text-sm">Coming Soon</p>
+                <p className="text-gray-700 font-medium group-hover:text-pink-600 transition-colors duration-300">Instagram Reel</p>
+                <p className="text-gray-500 text-sm group-hover:text-gray-600 transition-colors duration-300">Coming Soon</p>
               </div>
             </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-pink-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-100 to-green-100 rounded-2xl aspect-[9/16] relative overflow-hidden">
+          <div className="bg-gradient-to-br from-blue-100 to-green-100 rounded-2xl aspect-[9/16] relative overflow-hidden group cursor-pointer hover-lift animate-scale-in" style={{ animationDelay: '0.2s' }}>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 mx-auto shadow-lg">
-                  <div className="w-0 h-0 border-l-[10px] border-l-blue-500 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1"></div>
+              <div className="text-center transform group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 mx-auto shadow-lg group-hover:shadow-xl transition-all duration-300 animate-float" style={{ animationDelay: '0.5s' }}>
+                  <Heart className="w-6 h-6 text-blue-500 group-hover:text-red-500 transition-colors duration-300" />
                 </div>
-                <p className="text-gray-700 font-medium">Customer Story</p>
-                <p className="text-gray-500 text-sm">Coming Soon</p>
+                <p className="text-gray-700 font-medium group-hover:text-blue-600 transition-colors duration-300">Customer Story</p>
+                <p className="text-gray-500 text-sm group-hover:text-gray-600 transition-colors duration-300">Coming Soon</p>
               </div>
             </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
 
-          <div className="bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl aspect-[9/16] relative overflow-hidden">
+          <div className="bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl aspect-[9/16] relative overflow-hidden group cursor-pointer hover-lift animate-scale-in" style={{ animationDelay: '0.4s' }}>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 mx-auto shadow-lg">
-                  <div className="w-0 h-0 border-l-[10px] border-l-green-500 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1"></div>
+              <div className="text-center transform group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 mx-auto shadow-lg group-hover:shadow-xl transition-all duration-300 animate-float" style={{ animationDelay: '1s' }}>
+                  <Play className="w-6 h-6 text-green-500 ml-1 group-hover:text-green-600 transition-colors duration-300" />
                 </div>
-                <p className="text-gray-700 font-medium">Recipe Demo</p>
-                <p className="text-gray-500 text-sm">Coming Soon</p>
+                <p className="text-gray-700 font-medium group-hover:text-green-600 transition-colors duration-300">Recipe Demo</p>
+                <p className="text-gray-500 text-sm group-hover:text-gray-600 transition-colors duration-300">Coming Soon</p>
               </div>
             </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-green-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
         </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-4">Follow us for daily health tips and behind-the-scenes content</p>
+        <div className="mt-16 text-center animate-fade-in">
+          <p className="text-gray-600 mb-4 hover:text-gray-700 transition-colors duration-300">Follow us for daily health tips and behind-the-scenes content</p>
           <a 
             href="#" 
-            className="inline-flex items-center text-green-600 hover:text-green-700 font-medium story-link"
+            className="inline-flex items-center text-green-600 hover:text-green-700 font-medium transition-all duration-300 hover:scale-105 group"
           >
+            <Instagram className="w-5 h-5 mr-2 group-hover:animate-bounce" />
             @livora_health
+            <div className="ml-2 w-0 h-0.5 bg-green-600 group-hover:w-8 transition-all duration-300"></div>
           </a>
         </div>
       </div>
