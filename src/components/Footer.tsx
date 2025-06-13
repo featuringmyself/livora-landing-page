@@ -1,7 +1,7 @@
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-16">
+    <footer className="bg-black text-white py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
@@ -19,7 +19,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Coming Soon</h4>
+            <h4 className="font-semibold mb-4 text-white">Coming Soon</h4>
             <ul className="space-y-2 text-gray-300">
               <li><a href="#" className="hover:text-green-400 transition-colors">Meal Plans</a></li>
               <li><a href="#" className="hover:text-green-400 transition-colors">Healthy Snacks</a></li>
@@ -30,7 +30,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4">Get in Touch</h4>
+            <h4 className="font-semibold mb-4 text-white">Get in Touch</h4>
             <ul className="space-y-2 text-gray-300">
               <li>hello@livora.health</li>
               <li>+91 98765 43210</li>
