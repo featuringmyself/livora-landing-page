@@ -19,49 +19,49 @@ const Hero = () => {
       {/* Floating Interactive Elements - Hidden on mobile for cleaner look */}
       <div className="absolute inset-0 pointer-events-none hidden md:block">
         {/* Animated Icons */}
-        <div className="absolute top-20 left-10 animate-bounce delay-100 hover:scale-110 transition-transform">
+        <div className="absolute top-20 left-10  delay-100 hover:scale-110 transition-transform">
           <div className="w-12 lg:w-16 h-12 lg:h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-green-200/50">
             <Heart className="w-6 lg:w-8 h-6 lg:h-8 text-green-600 animate-pulse" />
           </div>
         </div>
         
-        <div className="absolute top-32 right-16 animate-bounce delay-300 hover:scale-110 transition-transform">
+        <div className="absolute top-32 right-16  delay-300 hover:scale-110 transition-transform">
           <div className="w-10 lg:w-12 h-10 lg:h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-orange-200/50">
             <Zap className="w-5 lg:w-6 h-5 lg:h-6 text-orange-600 animate-pulse" />
           </div>
         </div>
         
-        <div className="absolute bottom-32 left-20 animate-bounce delay-500 hover:scale-110 transition-transform">
+        <div className="absolute bottom-32 left-20  delay-500 hover:scale-110 transition-transform">
           <div className="w-12 lg:w-14 h-12 lg:h-14 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-blue-200/50">
             <Sparkles className="w-6 lg:w-7 h-6 lg:h-7 text-blue-600 animate-pulse" />
           </div>
         </div>
 
-        <div className="absolute top-1/3 right-32 animate-bounce delay-700 hover:scale-110 transition-transform">
+        <div className="absolute top-1/3 right-32  delay-700 hover:scale-110 transition-transform">
           <div className="w-8 lg:w-10 h-8 lg:h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-purple-200/50">
             <Star className="w-4 lg:w-5 h-4 lg:h-5 text-purple-600 animate-pulse" />
           </div>
         </div>
 
-        <div className="absolute bottom-1/4 right-20 animate-bounce delay-900 hover:scale-110 transition-transform">
+        <div className="absolute bottom-1/4 right-20  delay-900 hover:scale-110 transition-transform">
           <div className="w-10 lg:w-12 h-10 lg:h-12 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-emerald-200/50">
             <Leaf className="w-5 lg:w-6 h-5 lg:h-6 text-emerald-600 animate-pulse" />
           </div>
         </div>
 
-        <div className="absolute top-3/4 left-32 animate-bounce delay-1100 hover:scale-110 transition-transform">
+        <div className="absolute top-3/4 left-40  delay-1100 hover:scale-110 transition-transform">
           <div className="w-12 lg:w-14 h-12 lg:h-14 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-red-200/50">
             <Apple className="w-6 lg:w-7 h-6 lg:h-7 text-red-600 animate-pulse" />
           </div>
         </div>
         
         {/* Floating Food Emojis with enhanced animation - Smaller on tablet */}
-        <div className="absolute top-40 right-32 text-3xl lg:text-5xl animate-bounce hover:scale-125 transition-transform cursor-pointer">🥗</div>
-        <div className="absolute bottom-40 right-20 text-2xl lg:text-4xl animate-bounce delay-200 hover:scale-125 transition-transform cursor-pointer">🍎</div>
-        <div className="absolute top-60 left-32 text-2xl lg:text-4xl animate-bounce delay-400 hover:scale-125 transition-transform cursor-pointer">🥑</div>
-        <div className="absolute bottom-60 left-40 text-xl lg:text-3xl animate-bounce delay-600 hover:scale-125 transition-transform cursor-pointer">🥕</div>
-        <div className="absolute top-1/2 right-10 text-xl lg:text-3xl animate-bounce delay-800 hover:scale-125 transition-transform cursor-pointer">🫐</div>
-        <div className="absolute bottom-1/3 left-10 text-2xl lg:text-4xl animate-bounce delay-1000 hover:scale-125 transition-transform cursor-pointer">🥦</div>
+        <div className="absolute top-40 right-32 text-3xl lg:text-5xl  hover:scale-125 transition-transform cursor-pointer">🥗</div>
+        <div className="absolute bottom-40 right-20 text-2xl lg:text-4xl  delay-200 hover:scale-125 transition-transform cursor-pointer">🍎</div>
+        <div className="absolute top-60 left-32 text-2xl lg:text-4xl  delay-400 hover:scale-125 transition-transform cursor-pointer">🥑</div>
+        <div className="absolute bottom-60 left-40 text-xl lg:text-3xl  delay-600 hover:scale-125 transition-transform cursor-pointer">🥕</div>
+        <div className="absolute top-1/2 right-10 text-xl lg:text-3xl  delay-800 hover:scale-125 transition-transform cursor-pointer">🫐</div>
+        <div className="absolute bottom-1/3 left-10 text-2xl lg:text-4xl  delay-1000 hover:scale-125 transition-transform cursor-pointer">🥦</div>
 
         {/* Floating Particles */}
         {Array.from({ length: 20 }, (_, i) => (
@@ -82,7 +82,7 @@ const Hero = () => {
         <div className="animate-fade-in">
           {/* Enhanced Badge with Gradient */}
           <div className="inline-flex items-center bg-gradient-to-r from-green-100 via-emerald-50 to-green-100 text-green-800 px-4 md:px-8 py-3 md:py-4 rounded-full text-xs md:text-sm font-bold mb-6 md:mb-8 shadow-2xl border-2 border-green-200/50 backdrop-blur-sm hover:scale-105 transition-transform">
-            <Sparkles className="w-4 md:w-5 h-4 md:h-5 mr-2 md:mr-3 animate-spin" />
+            <Sparkles className="w-4 md:w-5 h-4 md:h-5 mr-2 md:mr-3 hover:animate-spin" />
             <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
               🎉 India's First AI-Powered Health Meal Subscription
             </span>
@@ -95,7 +95,7 @@ const Hero = () => {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 animate-pulse">
                 Livora
               </span>
-              <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg blur opacity-30 animate-pulse"></div>
+              {/* <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg blur opacity-30 animate-pulse"></div> */}
             </span>
           </h1>
           
@@ -104,7 +104,7 @@ const Hero = () => {
             <p className="text-lg md:text-2xl lg:text-3xl text-gray-700 mb-4 max-w-3xl mx-auto font-bold leading-relaxed px-4">
               Tired of guessing what to eat for your health goals?
             </p>
-            <div className="absolute -top-2 -right-4 md:-top-3 md:-right-8 lg:-right-16 rotate-12 group-hover:rotate-6 transition-transform">
+            <div className="absolute -top-2 -right-4 md:-top-8 md:-right-8 lg:-right-16 rotate-5 group-hover:rotate-6 transition-transform">
               <div className="bg-gradient-to-r from-yellow-300 to-orange-300 text-yellow-900 px-2 md:px-4 py-1 md:py-2 rounded-xl text-xs md:text-sm font-black shadow-xl border-2 border-yellow-400/50">
                 No More Guesswork! 🎯
               </div>
@@ -138,7 +138,7 @@ const Hero = () => {
               variant="outline" 
               className="w-full sm:w-auto border-3 border-green-300 bg-white/80 backdrop-blur-sm text-green-700 px-6 md:px-10 py-4 md:py-6 text-lg md:text-xl rounded-2xl hover:bg-green-50 hover:border-green-400 hover:shadow-xl transition-all duration-300 group"
             >
-              <Zap className="w-4 md:w-5 h-4 md:h-5 mr-2 md:mr-3 group-hover:animate-bounce" />
+              <Zap className="w-4 md:w-5 h-4 md:h-5 mr-2 md:mr-3 group-hover:" />
               Learn More
             </Button>
           </div>
@@ -161,8 +161,8 @@ const Hero = () => {
         </div>
         
         {/* Enhanced Arrow */}
-        <div className="animate-bounce group cursor-pointer" onClick={scrollToWaitlist}>
-          <ArrowDown className="w-6 md:w-8 h-6 md:h-8 text-green-600 mx-auto group-hover:text-green-700 transition-colors shadow-lg" />
+        <div className=" group cursor-pointer" onClick={scrollToWaitlist}>
+          <ArrowDown className="w-6 md:w-8 h-6 md:h-8 text-green-600 mx-auto group-hover:text-green-700 transition-colors " />
         </div>
       </div>
     </section>
