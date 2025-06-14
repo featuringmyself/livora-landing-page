@@ -1,5 +1,10 @@
 
+import { useFadeInUp, useStaggerAnimation } from "@/hooks/useGSAP";
+
 const MealShowcase = () => {
+  const headerRef = useFadeInUp(0);
+  const mealsRef = useStaggerAnimation();
+
   const meals = [
     {
       id: 1,
@@ -59,24 +64,23 @@ const MealShowcase = () => {
   ];
 
   return (
-    <section className="py-12 md:py-20 bg-white">
+    <section className="py-12 md:py-20 bg-gradient-to-br from-gray-50/50 to-white">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 hover:scale-105 transition-transform duration-300">
-            Curated for Your <span className="text-gradient animate-pulse">Health Goals</span>
+        <div ref={headerRef} className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
+            Curated for Your <span className="text-gradient">Health Goals</span>
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto hover:text-gray-700 transition-colors duration-300 px-4">
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
             Every meal is crafted by nutritionists and powered by AI to match your specific dietary needs, 
             preferences, and health objectives.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
-          {meals.map((meal, index) => (
+        <div ref={mealsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
+          {meals.map((meal) => (
             <div 
               key={meal.id} 
-              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group hover-lift cursor-pointer animate-scale-in"
-              style={{ animationDelay: `${index * 0.15}s` }}
+              className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-700 overflow-hidden group cursor-pointer border border-gray-100/50"
             >
               <div className="relative overflow-hidden">
                 <img 
@@ -84,32 +88,31 @@ const MealShowcase = () => {
                   alt={meal.name}
                   className="w-full h-40 md:h-48 object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute top-3 md:top-4 right-3 md:right-4 bg-green-600 text-white px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute top-3 md:top-4 right-3 md:right-4 bg-green-600/90 backdrop-blur-sm text-white px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   {meal.category}
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-green-400/20 to-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
               
-              <div className="p-4 md:p-6 transform group-hover:-translate-y-1 transition-transform duration-300">
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors duration-300">{meal.name}</h3>
-                <p className="text-gray-600 mb-3 md:mb-4 text-sm group-hover:text-gray-700 transition-colors duration-300">{meal.description}</p>
+              <div className="p-4 md:p-6 transform group-hover:-translate-y-1 transition-transform duration-500">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors duration-500">{meal.name}</h3>
+                <p className="text-gray-600 mb-3 md:mb-4 text-sm leading-relaxed group-hover:text-gray-700 transition-colors duration-500">{meal.description}</p>
                 
-                <div className="bg-gray-50 rounded-lg p-3 md:p-4 group-hover:bg-green-50 transition-colors duration-300">
+                <div className="bg-gray-50/80 backdrop-blur-sm rounded-lg p-3 md:p-4 group-hover:bg-green-50/80 transition-all duration-500 border border-gray-100/50">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-xs md:text-sm font-medium text-gray-700">Nutrition Info</span>
-                    <span className="text-lg font-bold text-green-600 group-hover:scale-110 transition-transform duration-300">{meal.calories} cal</span>
+                    <span className="text-lg font-bold text-green-600 group-hover:scale-110 transition-transform duration-500">{meal.calories} cal</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-xs md:text-sm">
-                    <div className="text-center transform group-hover:scale-105 transition-transform duration-300 delay-75">
+                    <div className="text-center transform group-hover:scale-105 transition-transform duration-500">
                       <div className="font-semibold text-gray-900">{meal.protein}</div>
                       <div className="text-gray-500">Protein</div>
                     </div>
-                    <div className="text-center transform group-hover:scale-105 transition-transform duration-300 delay-100">
+                    <div className="text-center transform group-hover:scale-105 transition-transform duration-500 delay-75">
                       <div className="font-semibold text-gray-900">{meal.carbs}</div>
                       <div className="text-gray-500">Carbs</div>
                     </div>
-                    <div className="text-center transform group-hover:scale-105 transition-transform duration-300 delay-125">
+                    <div className="text-center transform group-hover:scale-105 transition-transform duration-500 delay-100">
                       <div className="font-semibold text-gray-900">{meal.fat}</div>
                       <div className="text-gray-500">Fat</div>
                     </div>
@@ -120,8 +123,8 @@ const MealShowcase = () => {
           ))}
         </div>
 
-        <div className="text-center animate-fade-in">
-          <p className="text-gray-600 text-base md:text-lg hover:text-green-600 transition-colors duration-300 cursor-default">
+        <div className="text-center">
+          <p className="text-gray-600 text-base md:text-lg hover:text-green-600 transition-colors duration-500 cursor-default">
             And many more personalized options tailored just for you...
           </p>
         </div>
