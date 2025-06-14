@@ -31,16 +31,18 @@ export const useFadeInUp = (delay = 0) => {
     gsap.fromTo(element, 
       { 
         opacity: 0, 
-        y: 20,
-        scale: 0.98
+        y: 40,
+        scale: 0.95,
+        filter: 'blur(5px)'
       },
       { 
         opacity: 1, 
         y: 0,
         scale: 1,
-        duration: 0.8,
+        filter: 'blur(0px)',
+        duration: 1.2,
         delay,
-        ease: "power2.out",
+        ease: "power3.out",
         scrollTrigger: {
           trigger: element,
           start: "top 85%",
@@ -65,16 +67,20 @@ export const useStaggerAnimation = () => {
     gsap.fromTo(children,
       {
         opacity: 0,
-        y: 15,
-        scale: 0.98
+        y: 30,
+        scale: 0.9,
+        rotateX: 15,
+        filter: 'blur(3px)'
       },
       {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "power2.out",
+        rotateX: 0,
+        filter: 'blur(0px)',
+        duration: 1,
+        stagger: 0.15,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: element,
           start: "top 80%",
@@ -95,13 +101,13 @@ export const useParallaxEffect = (speed = 0.3) => {
     if (!element) return;
 
     gsap.to(element, {
-      yPercent: -20 * speed,
+      yPercent: -30 * speed,
       ease: "none",
       scrollTrigger: {
         trigger: element,
         start: "top bottom",
         end: "bottom top",
-        scrub: 1
+        scrub: 1.5
       }
     });
   }, [speed]);
@@ -122,10 +128,10 @@ export const useMagneticEffect = () => {
       const y = e.clientY - rect.top - rect.height / 2;
       
       gsap.to(element, {
-        x: x * 0.05,
-        y: y * 0.05,
-        duration: 0.6,
-        ease: "power2.out"
+        x: x * 0.08,
+        y: y * 0.08,
+        duration: 0.8,
+        ease: "power3.out"
       });
     };
 
@@ -133,8 +139,8 @@ export const useMagneticEffect = () => {
       gsap.to(element, {
         x: 0,
         y: 0,
-        duration: 0.8,
-        ease: "power2.out"
+        duration: 1.2,
+        ease: "elastic.out(1, 0.3)"
       });
     };
 
@@ -146,6 +152,109 @@ export const useMagneticEffect = () => {
       element.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
+
+  return ref;
+};
+
+export const useTextReveal = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const text = element.textContent;
+    element.innerHTML = '';
+    
+    if (text) {
+      const chars = text.split('');
+      chars.forEach((char, index) => {
+        const span = document.createElement('span');
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.style.display = 'inline-block';
+        span.style.opacity = '0';
+        span.style.transform = 'translateY(20px)';
+        element.appendChild(span);
+      });
+
+      gsap.to(element.children, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.02,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    }
+  }, []);
+
+  return ref;
+};
+
+export const useHoverGlow = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(element, {
+        boxShadow: "0 20px 60px rgba(34, 197, 94, 0.3), 0 0 40px rgba(34, 197, 94, 0.2)",
+        scale: 1.02,
+        duration: 0.6,
+        ease: "power2.out"
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(element, {
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+        scale: 1,
+        duration: 0.6,
+        ease: "power2.out"
+      });
+    };
+
+    element.addEventListener('mouseenter', handleMouseEnter);
+    element.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      element.removeEventListener('mouseenter', handleMouseEnter);
+      element.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return ref;
+};
+
+export const useCounterAnimation = (endValue: number, duration = 2) => {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const counter = { value: 0 };
+    
+    gsap.to(counter, {
+      value: endValue,
+      duration,
+      ease: "power2.out",
+      onUpdate: () => {
+        element.textContent = Math.floor(counter.value).toString();
+      },
+      scrollTrigger: {
+        trigger: element,
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
+    });
+  }, [endValue, duration]);
 
   return ref;
 };
