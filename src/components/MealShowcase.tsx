@@ -1,9 +1,31 @@
 
 import { useFadeInUp, useStaggerAnimation } from "@/hooks/useGSAP";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const MealShowcase = () => {
   const headerRef = useFadeInUp(0);
   const mealsRef = useStaggerAnimation();
+  const backgroundRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Parallax background effect
+    if (backgroundRef.current) {
+      gsap.to(backgroundRef.current, {
+        yPercent: -30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: backgroundRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1
+        }
+      });
+    }
+  }, []);
 
   const meals = [
     {
@@ -64,11 +86,17 @@ const MealShowcase = () => {
   ];
 
   return (
-    <section className="py-12 md:py-20 bg-gradient-to-br from-gray-50/50 to-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-12 md:py-20 bg-gradient-to-br from-gray-50/50 to-white relative overflow-hidden">
+      {/* Enhanced background with parallax */}
+      <div ref={backgroundRef} className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-green-200/15 to-emerald-300/15 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-blue-200/15 to-purple-300/15 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div ref={headerRef} className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
-            Curated for Your <span className="text-gradient">Health Goals</span>
+            Curated for Your <span className="text-gradient bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Health Goals</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
             Every meal is crafted by nutritionists and powered by AI to match your specific dietary needs, 
@@ -77,19 +105,23 @@ const MealShowcase = () => {
         </div>
 
         <div ref={mealsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
-          {meals.map((meal) => (
+          {meals.map((meal, index) => (
             <div 
               key={meal.id} 
-              className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-700 overflow-hidden group cursor-pointer border border-gray-100/50"
+              className="bg-white/90 backdrop-blur-md rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-gray-200/60 transition-all duration-700 overflow-hidden group cursor-pointer border border-gray-100/60 hover:-translate-y-3 hover:rotate-1"
+              style={{ 
+                animationDelay: `${index * 0.1}s`,
+                transformOrigin: 'center center'
+              }}
             >
               <div className="relative overflow-hidden">
                 <img 
                   src={meal.image} 
                   alt={meal.name}
-                  className="w-full h-40 md:h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-40 md:h-48 object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-2"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute top-3 md:top-4 right-3 md:right-4 bg-green-600/90 backdrop-blur-sm text-white px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute top-3 md:top-4 right-3 md:right-4 bg-green-600/95 backdrop-blur-sm text-white px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 shadow-lg">
                   {meal.category}
                 </div>
               </div>
@@ -98,7 +130,7 @@ const MealShowcase = () => {
                 <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors duration-500">{meal.name}</h3>
                 <p className="text-gray-600 mb-3 md:mb-4 text-sm leading-relaxed group-hover:text-gray-700 transition-colors duration-500">{meal.description}</p>
                 
-                <div className="bg-gray-50/80 backdrop-blur-sm rounded-lg p-3 md:p-4 group-hover:bg-green-50/80 transition-all duration-500 border border-gray-100/50">
+                <div className="bg-gray-50/90 backdrop-blur-sm rounded-2xl p-3 md:p-4 group-hover:bg-green-50/90 transition-all duration-500 border border-gray-100/60 group-hover:border-green-200/60">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-xs md:text-sm font-medium text-gray-700">Nutrition Info</span>
                     <span className="text-lg font-bold text-green-600 group-hover:scale-110 transition-transform duration-500">{meal.calories} cal</span>
