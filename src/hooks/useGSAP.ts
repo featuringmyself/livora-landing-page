@@ -31,19 +31,19 @@ export const useFadeInUp = (delay = 0) => {
     gsap.fromTo(element, 
       { 
         opacity: 0, 
-        y: 50,
-        scale: 0.95
+        y: 20,
+        scale: 0.98
       },
       { 
         opacity: 1, 
         y: 0,
         scale: 1,
-        duration: 1.2,
+        duration: 0.8,
         delay,
-        ease: "power3.out",
+        ease: "power2.out",
         scrollTrigger: {
           trigger: element,
-          start: "top 90%",
+          start: "top 85%",
           toggleActions: "play none none reverse"
         }
       }
@@ -65,19 +65,19 @@ export const useStaggerAnimation = () => {
     gsap.fromTo(children,
       {
         opacity: 0,
-        y: 30,
-        scale: 0.9
+        y: 15,
+        scale: 0.98
       },
       {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 0.8,
-        stagger: 0.15,
+        duration: 0.6,
+        stagger: 0.1,
         ease: "power2.out",
         scrollTrigger: {
           trigger: element,
-          start: "top 85%",
+          start: "top 80%",
           toggleActions: "play none none reverse"
         }
       }
@@ -87,7 +87,7 @@ export const useStaggerAnimation = () => {
   return ref;
 };
 
-export const useParallaxEffect = (speed = 0.5) => {
+export const useParallaxEffect = (speed = 0.3) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -95,13 +95,13 @@ export const useParallaxEffect = (speed = 0.5) => {
     if (!element) return;
 
     gsap.to(element, {
-      yPercent: -50 * speed,
+      yPercent: -20 * speed,
       ease: "none",
       scrollTrigger: {
         trigger: element,
         start: "top bottom",
         end: "bottom top",
-        scrub: true
+        scrub: 1
       }
     });
   }, [speed]);
@@ -122,9 +122,9 @@ export const useMagneticEffect = () => {
       const y = e.clientY - rect.top - rect.height / 2;
       
       gsap.to(element, {
-        x: x * 0.15,
-        y: y * 0.15,
-        duration: 0.3,
+        x: x * 0.05,
+        y: y * 0.05,
+        duration: 0.6,
         ease: "power2.out"
       });
     };
@@ -133,8 +133,8 @@ export const useMagneticEffect = () => {
       gsap.to(element, {
         x: 0,
         y: 0,
-        duration: 0.5,
-        ease: "elastic.out(1, 0.3)"
+        duration: 0.8,
+        ease: "power2.out"
       });
     };
 
