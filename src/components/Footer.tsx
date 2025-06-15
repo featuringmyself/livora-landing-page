@@ -32,12 +32,12 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-white">Get in Touch</h4>
             <ul className="space-y-2 text-gray-300">
-              <li>hello@livora.health</li>
-              <li>+91 98765 43210</li>
+              <li>rudra@dodox.in</li>
+              <li>+91 7029835611</li>
               <li className="pt-4">
                 <div className="flex space-x-4">
-                  <a href="#" className="hover:text-green-400 transition-colors">Instagram</a>
-                  <a href="#" className="hover:text-green-400 transition-colors">Twitter</a>
+                  <a href="https://www.instagram.com/livora" className="hover:text-green-400 transition-colors">Instagram</a>
+                  <a href="https://www.x.com/livora" className="hover:text-green-400 transition-colors">Twitter</a>
                 </div>
               </li>
             </ul>
@@ -47,7 +47,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2024 Livora. All rights reserved.
+              © 2025 Livora. All rights reserved.
             </div>
             <div className="flex space-x-6 text-sm text-gray-400">
               <a href="#" className="hover:text-green-400 transition-colors">Privacy Policy</a>
