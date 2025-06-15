@@ -32,14 +32,12 @@ export const useFadeInUp = (delay = 0) => {
       { 
         opacity: 0, 
         y: 40,
-        scale: 0.95,
-        filter: 'blur(5px)'
+        scale: 0.95
       },
       { 
         opacity: 1, 
         y: 0,
         scale: 1,
-        filter: 'blur(0px)',
         duration: 1.2,
         delay,
         ease: "power3.out",
@@ -50,6 +48,14 @@ export const useFadeInUp = (delay = 0) => {
         }
       }
     );
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === element) {
+          trigger.kill();
+        }
+      });
+    };
   }, [delay]);
 
   return ref;
@@ -68,16 +74,12 @@ export const useStaggerAnimation = () => {
       {
         opacity: 0,
         y: 30,
-        scale: 0.9,
-        rotateX: 15,
-        filter: 'blur(3px)'
+        scale: 0.9
       },
       {
         opacity: 1,
         y: 0,
         scale: 1,
-        rotateX: 0,
-        filter: 'blur(0px)',
         duration: 1,
         stagger: 0.15,
         ease: "power3.out",
@@ -88,6 +90,14 @@ export const useStaggerAnimation = () => {
         }
       }
     );
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === element) {
+          trigger.kill();
+        }
+      });
+    };
   }, []);
 
   return ref;
@@ -110,6 +120,14 @@ export const useParallaxEffect = (speed = 0.3) => {
         scrub: 1.5
       }
     });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === element) {
+          trigger.kill();
+        }
+      });
+    };
   }, [speed]);
 
   return ref;
@@ -164,32 +182,40 @@ export const useTextReveal = () => {
     if (!element) return;
 
     const text = element.textContent;
+    if (!text) return;
+    
     element.innerHTML = '';
     
-    if (text) {
-      const chars = text.split('');
-      chars.forEach((char, index) => {
-        const span = document.createElement('span');
-        span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.display = 'inline-block';
-        span.style.opacity = '0';
-        span.style.transform = 'translateY(20px)';
-        element.appendChild(span);
-      });
+    const chars = text.split('');
+    chars.forEach((char) => {
+      const span = document.createElement('span');
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.style.display = 'inline-block';
+      span.style.opacity = '0';
+      span.style.transform = 'translateY(20px)';
+      element.appendChild(span);
+    });
 
-      gsap.to(element.children, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.02,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 85%",
-          toggleActions: "play none none reverse"
+    gsap.to(element.children, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.02,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: element,
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === element) {
+          trigger.kill();
         }
       });
-    }
+    };
   }, []);
 
   return ref;
@@ -246,7 +272,9 @@ export const useCounterAnimation = (endValue: number, duration = 2) => {
       duration,
       ease: "power2.out",
       onUpdate: () => {
-        element.textContent = Math.floor(counter.value).toString();
+        if (element) {
+          element.textContent = Math.floor(counter.value).toString();
+        }
       },
       scrollTrigger: {
         trigger: element,
@@ -254,6 +282,14 @@ export const useCounterAnimation = (endValue: number, duration = 2) => {
         toggleActions: "play none none reverse"
       }
     });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === element) {
+          trigger.kill();
+        }
+      });
+    };
   }, [endValue, duration]);
 
   return ref;
