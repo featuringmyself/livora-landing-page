@@ -7,7 +7,6 @@ import Statistics from "@/components/Statistics";
 import ProductMockup from "@/components/ProductMockup";
 import SocialProof from "@/components/SocialProof";
 import FAQ from "@/components/FAQ";
-import Newsletter from "@/components/Newsletter";
 import Waitlist from "@/components/Waitlist";
 import Footer from "@/components/Footer";
 
@@ -22,7 +21,6 @@ const Index = () => {
       <ProductMockup />
       <SocialProof />
       <FAQ />
-      <Newsletter />
       <Waitlist />
       <Footer />
     </div>

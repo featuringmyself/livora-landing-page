@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { ChevronDown, HelpCircle, Plus, Minus } from "lucide-react";
 import { useFadeInUp, useStaggerAnimation } from "@/hooks/useGSAP";
 
 const FAQ = () => {
@@ -36,48 +36,69 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-purple-50/30 pointer-events-none"></div>
+    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-blue-50/50 relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px)`,
+          backgroundSize: '40px 40px'
+        }}></div>
+      </div>
       
       <div className="max-w-4xl mx-auto px-4 relative z-10">
         <div ref={headerRef} className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full mb-6">
-            <HelpCircle className="w-8 h-8 text-blue-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mb-6 shadow-lg">
+            <HelpCircle className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Frequently Asked <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Questions</span>
           </h2>
-          <p className="text-xl text-gray-600">
-            Everything you need to know about Livora and how it works.
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Everything you need to know about Livora and how it works for your health journey.
           </p>
         </div>
 
-        <div ref={faqRef} className="space-y-4">
+        <div ref={faqRef} className="space-y-3">
           {faqs.map((faq, index) => (
             <div 
               key={index}
-              className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-500 overflow-hidden"
             >
               <button
-                className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50/50 rounded-2xl transition-colors duration-300"
+                className="w-full px-6 md:px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50/50 transition-colors duration-300 group"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
-                <h3 className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
-                <ChevronDown 
-                  className={`w-5 h-5 text-gray-600 transition-transform duration-300 ${
-                    openIndex === index ? 'rotate-180' : ''
-                  }`}
-                />
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 pr-4 group-hover:text-blue-600 transition-colors duration-300">
+                  {faq.question}
+                </h3>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-all duration-300">
+                  {openIndex === index ? (
+                    <Minus className="w-4 h-4 text-blue-600 transition-transform duration-300" />
+                  ) : (
+                    <Plus className="w-4 h-4 text-blue-600 transition-transform duration-300" />
+                  )}
+                </div>
               </button>
-              {openIndex === index && (
-                <div className="px-8 pb-6">
-                  <p className="text-gray-600 leading-relaxed animate-fade-in">
+              
+              <div className={`transition-all duration-500 ease-in-out ${
+                openIndex === index 
+                  ? 'max-h-96 opacity-100' 
+                  : 'max-h-0 opacity-0'
+              } overflow-hidden`}>
+                <div className="px-6 md:px-8 pb-6 border-t border-gray-100">
+                  <p className="text-gray-600 leading-relaxed pt-4 text-base md:text-lg">
                     {faq.answer}
                   </p>
                 </div>
-              )}
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <p className="text-gray-500 text-sm">
+            Still have questions? <span className="text-blue-600 font-medium cursor-pointer hover:underline">Contact our support team</span>
+          </p>
         </div>
       </div>
     </section>
