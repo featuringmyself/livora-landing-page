@@ -1,78 +1,130 @@
-
-import { Target, Users, Award, Sparkles } from "lucide-react";
-import { useFadeInUp, useStaggerAnimation, useMagneticEffect, useHoverGlow } from "@/hooks/useGSAP";
+import { Heart, Sparkles, ArrowRight } from "lucide-react";
+import { useFadeInUp } from "@/hooks/useGSAP";
 
 const About = () => {
   const headerRef = useFadeInUp(0);
-  const cardsRef = useStaggerAnimation();
-  const magneticRef = useMagneticEffect();
-  const glowRef = useHoverGlow();
+  const contentRef = useFadeInUp(0.2);
+
+  const scrollToWaitlist = () => {
+    const waitlistSection = document.getElementById('waitlist');
+    if (waitlistSection) {
+      waitlistSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   return (
-    <section className="py-12 md:py-20 bg-white relative overflow-hidden">
-      {/* Enhanced background with animated gradients */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-50/40 to-emerald-50/40 pointer-events-none"></div>
-      <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-r from-green-200/15 to-emerald-300/15 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-10 left-10 w-40 h-40 bg-gradient-to-r from-blue-200/15 to-purple-300/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-r from-yellow-200/10 to-orange-300/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '4s' }}></div>
-
-      <div className="max-w-6xl mx-auto px-4 relative z-10">
-        <div ref={headerRef} className="text-center mb-12 md:mb-16">
-          <div className="inline-flex items-center justify-center w-12 md:w-16 h-12 md:h-16 bg-gradient-to-r from-green-100 to-emerald-100 rounded-full mb-4 md:mb-6 shadow-2xl backdrop-blur-md border border-green-200/60 hover:shadow-green-300/50 transition-all duration-700 hover:scale-110 hover:rotate-12">
-            <Sparkles className="w-6 md:w-8 h-6 md:h-8 text-green-600" />
+    <section className="py-20 md:py-32 bg-white relative overflow-hidden">
+      {/* Background design */}
+      <div className="absolute inset-0 bg-gradient-to-br from-green-50/30 via-white to-emerald-50/30"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-green-200/10 to-emerald-300/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-tl from-blue-200/10 to-purple-300/10 rounded-full blur-3xl"></div>
+      
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        {/* Header */}
+        <div ref={headerRef} className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl mb-6 shadow-lg">
+            <Sparkles className="w-8 h-8 text-green-600" />
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
-            Why <span className="text-gradient bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Livora</span>?
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6">
+            Who We Are
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
-            Born from the frustration of endless diet confusion and conflicting nutrition advice, 
-            Livora combines cutting-edge AI with traditional Indian wellness wisdom.
-          </p>
+          <div className="w-32 h-1 bg-gradient-to-r from-green-500 to-emerald-500 mx-auto rounded-full shadow-lg"></div>
         </div>
 
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          <div className="text-center p-6 md:p-8 rounded-3xl bg-gradient-to-br from-green-50/80 to-emerald-50/80 backdrop-blur-xl border border-green-100/80 hover:shadow-2xl hover:shadow-green-100/40 transition-all duration-1000 group cursor-pointer hover:-translate-y-3 hover:rotate-1 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-green-100/0 via-green-100/30 to-green-100/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1500"></div>
-            <div className="w-12 md:w-16 h-12 md:h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-2xl group-hover:shadow-green-200/80 group-hover:scale-125 group-hover:rotate-12 transition-all duration-700 relative z-10">
-              <Target className="w-6 md:w-8 h-6 md:h-8 text-green-600 group-hover:text-green-700 transition-colors duration-500" />
+        <div ref={contentRef} className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left side - Content */}
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                Revolutionizing healthy eating with{" "}
+                <span className="text-gradient bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                  AI-powered
+                </span>{" "}
+                personalized meal plans
+              </h3>
+              
+              <p className="text-xl text-gray-600 leading-relaxed">
+                We combine cutting-edge AI with expert nutritionists to create customized meal plans that are both nutritious and delicious.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                  </div>
+                  <p className="text-lg text-gray-700">
+                    Fresh, dietitian-approved meals delivered to your doorstep
+                  </p>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                  </div>
+                  <p className="text-lg text-gray-700">
+                    Flexible subscriptions with full control - pause, modify, or cancel anytime
+                  </p>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                  </div>
+                  <p className="text-lg text-gray-700">
+                    Customize meals, swap ingredients, and track live macros
+                  </p>
+                </div>
+              </div>
             </div>
-            <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4 group-hover:text-green-600 transition-colors duration-500 relative z-10">Our Mission</h3>
-            <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-500 text-sm md:text-base leading-relaxed relative z-10">
-              To make personalized nutrition accessible to every Indian household through the power of AI and local food culture.
-            </p>
+
+            {/* CTA */}
+            <div className="pt-6">
+              <button 
+                onClick={scrollToWaitlist}
+                className="inline-flex items-center gap-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-5 rounded-2xl font-semibold text-xl shadow-2xl hover:shadow-green-200/50 hover:scale-105 transition-all duration-300 group"
+              >
+                <span>Get Ready for the Health Revolution</span>
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" />
+              </button>
+            </div>
           </div>
 
-          <div className="text-center p-6 md:p-8 rounded-3xl bg-gradient-to-br from-blue-50/80 to-indigo-50/80 backdrop-blur-xl border border-blue-100/80 hover:shadow-2xl hover:shadow-blue-100/40 transition-all duration-1000 group cursor-pointer hover:-translate-y-3 hover:rotate-1 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-100/0 via-blue-100/30 to-blue-100/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1500"></div>
-            <div className="w-12 md:w-16 h-12 md:h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-2xl group-hover:shadow-blue-200/80 group-hover:scale-125 group-hover:rotate-12 transition-all duration-700 relative z-10">
-              <Users className="w-6 md:w-8 h-6 md:h-8 text-blue-600 group-hover:text-blue-700 transition-colors duration-500" />
-            </div>
-            <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4 group-hover:text-blue-600 transition-colors duration-500 relative z-10">Our Story</h3>
-            <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-500 text-sm md:text-base leading-relaxed relative z-10">
-              Founded by nutrition enthusiasts who believe healthy food should be delicious, convenient, and tailored to your unique needs.
-            </p>
-          </div>
+          {/* Right side - Visual */}
+          <div className="relative">
+            <div className="relative z-10">
+              {/* Main card */}
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-8 md:p-12 shadow-2xl border border-green-100/50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-200/20 to-emerald-300/20 rounded-full blur-2xl"></div>
+                
+                <div className="flex items-center justify-center mb-8">
+                  <div className="w-32 h-32 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center shadow-xl border-4 border-white relative">
+                    <Heart className="w-16 h-16 text-green-600" />
+                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                      <Sparkles className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
+                </div>
 
-          <div className="text-center p-6 md:p-8 rounded-3xl bg-gradient-to-br from-purple-50/80 to-pink-50/80 backdrop-blur-xl border border-purple-100/80 hover:shadow-2xl hover:shadow-purple-100/40 transition-all duration-1000 group cursor-pointer hover:-translate-y-3 hover:rotate-1 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-100/0 via-purple-100/30 to-purple-100/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1500"></div>
-            <div className="w-12 md:w-16 h-12 md:h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-2xl group-hover:shadow-purple-200/80 group-hover:scale-125 group-hover:rotate-12 transition-all duration-700 relative z-10">
-              <Award className="w-6 md:w-8 h-6 md:h-8 text-purple-600 group-hover:text-purple-700 transition-colors duration-500" />
-            </div>
-            <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4 group-hover:text-purple-600 transition-colors duration-500 relative z-10">Our Promise</h3>
-            <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-500 text-sm md:text-base leading-relaxed relative z-10">
-              Evidence-based nutrition recommendations that respect your taste preferences, dietary restrictions, and lifestyle.
-            </p>
-          </div>
-        </div>
+                <div className="text-center space-y-4">
+                  <h4 className="text-2xl font-bold text-gray-900">Personalized Nutrition Made Simple</h4>
+                  <p className="text-gray-600 leading-relaxed">
+                    AI-powered recommendations tailored to your individual goals, preferences, and lifestyle.
+                  </p>
+                </div>
+              </div>
 
-        <div ref={magneticRef} className="mt-12 md:mt-16 text-center">
-          <div ref={glowRef} className="bg-gradient-to-r from-green-600/95 to-emerald-600/95 backdrop-blur-xl text-white p-6 md:p-8 rounded-3xl transition-all duration-1000 group cursor-pointer border border-green-500/40 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-2000"></div>
-            <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 group-hover:scale-105 transition-transform duration-700 relative z-10">Ready to transform your relationship with food?</h3>
-            <p className="text-green-100 text-base md:text-lg group-hover:text-white transition-colors duration-700 relative z-10">
-              Join thousands of Indians who are already on their personalized health journey with Livora.
-            </p>
-            <div className="mt-3 md:mt-4 w-12 md:w-16 h-1 bg-white/40 mx-auto rounded-full group-hover:w-20 md:group-hover:w-24 group-hover:bg-white/80 transition-all duration-1000 relative z-10"></div>
+              {/* Floating elements */}
+              <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl shadow-lg flex items-center justify-center">
+                <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+              </div>
+              
+              <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl shadow-lg flex items-center justify-center">
+                <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

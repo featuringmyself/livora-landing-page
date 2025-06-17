@@ -20,7 +20,7 @@ const ProductMockup = () => {
             
             <div className="space-y-4 md:space-y-6">
               <div className="flex items-start space-x-3 md:space-x-4 group cursor-pointer">
-                <div className="bg-green-100 rounded-full p-2 mt-1 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-float">
+                <div className="bg-green-100 rounded-full p-2 mt-1 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 ">
                   <CheckCircle className="w-3 md:w-4 h-3 md:h-4 text-green-600" />
                 </div>
                 <div className="group-hover:transform group-hover:translate-x-2 transition-transform duration-300">
@@ -30,7 +30,7 @@ const ProductMockup = () => {
               </div>
               
               <div className="flex items-start space-x-3 md:space-x-4 group cursor-pointer">
-                <div className="bg-green-100 rounded-full p-2 mt-1 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-float" style={{ animationDelay: '0.5s' }}>
+                <div className="bg-green-100 rounded-full p-2 mt-1 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 " style={{ animationDelay: '0.5s' }}>
                   <Leaf className="w-3 md:w-4 h-3 md:h-4 text-green-600" />
                 </div>
                 <div className="group-hover:transform group-hover:translate-x-2 transition-transform duration-300">
@@ -40,7 +40,7 @@ const ProductMockup = () => {
               </div>
               
               <div className="flex items-start space-x-3 md:space-x-4 group cursor-pointer">
-                <div className="bg-green-100 rounded-full p-2 mt-1 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-float" style={{ animationDelay: '1s' }}>
+                <div className="bg-green-100 rounded-full p-2 mt-1 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 " style={{ animationDelay: '1s' }}>
                   <Zap className="w-3 md:w-4 h-3 md:h-4 text-green-600" />
                 </div>
                 <div className="group-hover:transform group-hover:translate-x-2 transition-transform duration-300">

@@ -1,4 +1,3 @@
-
 import { ArrowDown, Sparkles, Heart, Zap, Star, Leaf, Apple } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
@@ -150,10 +149,9 @@ const Hero = () => {
   const scrollToWaitlist = () => {
     const waitlistSection = document.getElementById('waitlist');
     if (waitlistSection) {
-      gsap.to(window, {
-        duration: 2,
-        scrollTo: { y: waitlistSection, offsetY: 0 },
-        ease: "power3.inOut"
+      waitlistSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
       });
     }
   };
