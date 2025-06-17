@@ -1,9 +1,30 @@
-
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Enhanced animation configuration
+const ANIMATION_CONFIG = {
+  duration: 1.2,
+  ease: "power3.out",
+  stagger: 0.1,
+  scrollTrigger: {
+    start: "top 85%",
+    end: "bottom 15%",
+    toggleActions: "play none none none", // Changed to prevent jarring reverse animations
+    markers: false
+  }
+};
+
+// Utility function to clean up ScrollTrigger instances
+const cleanupScrollTrigger = (element: Element) => {
+  ScrollTrigger.getAll().forEach(trigger => {
+    if (trigger.trigger === element) {
+      trigger.kill();
+    }
+  });
+};
 
 export const useGSAP = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -12,93 +33,104 @@ export const useGSAP = () => {
     const element = ref.current;
     if (!element) return;
 
-    // Cleanup function
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      cleanupScrollTrigger(element);
     };
   }, []);
 
   return ref;
 };
 
-export const useFadeInUp = (delay = 0) => {
+export const useFadeInUp = (delay = 0, customConfig = {}) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
-    gsap.fromTo(element, 
-      { 
-        opacity: 0, 
-        y: 40,
-        scale: 0.95
-      },
-      { 
-        opacity: 1, 
-        y: 0,
-        scale: 1,
-        duration: 1.2,
-        delay,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 85%",
-          toggleActions: "play none none reverse"
-        }
+    const config = {
+      ...ANIMATION_CONFIG,
+      ...customConfig
+    };
+
+    // Set initial state
+    gsap.set(element, {
+      opacity: 0,
+      y: 60,
+      scale: 0.95,
+      filter: 'blur(5px)'
+    });
+
+    // Create the animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        ...config.scrollTrigger
       }
-    );
+    });
+
+    tl.to(element, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: config.duration,
+      delay,
+      ease: config.ease
+    });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.trigger === element) {
-          trigger.kill();
-        }
-      });
+      cleanupScrollTrigger(element);
     };
-  }, [delay]);
+  }, [delay, customConfig]);
 
   return ref;
 };
 
-export const useStaggerAnimation = () => {
+export const useStaggerAnimation = (customConfig = {}) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
-    const children = element.children;
+    const config = {
+      ...ANIMATION_CONFIG,
+      ...customConfig
+    };
+
+    const children = Array.from(element.children);
     
-    gsap.fromTo(children,
-      {
-        opacity: 0,
-        y: 30,
-        scale: 0.9
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
-        }
+    // Set initial state for all children
+    gsap.set(children, {
+      opacity: 0,
+      y: 40,
+      scale: 0.9,
+      filter: 'blur(3px)'
+    });
+
+    // Create staggered animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        ...config.scrollTrigger
       }
-    );
+    });
+
+    tl.to(children, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: config.duration,
+      stagger: config.stagger,
+      ease: config.ease
+    });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.trigger === element) {
-          trigger.kill();
-        }
-      });
+      cleanupScrollTrigger(element);
     };
-  }, []);
+  }, [customConfig]);
 
   return ref;
 };
@@ -122,11 +154,7 @@ export const useParallaxEffect = (speed = 0.3) => {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.trigger === element) {
-          trigger.kill();
-        }
-      });
+      cleanupScrollTrigger(element);
     };
   }, [speed]);
 
@@ -174,12 +202,17 @@ export const useMagneticEffect = () => {
   return ref;
 };
 
-export const useTextReveal = () => {
+export const useTextReveal = (customConfig = {}) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
+
+    const config = {
+      ...ANIMATION_CONFIG,
+      ...customConfig
+    };
 
     const text = element.textContent;
     if (!text) return;
@@ -192,31 +225,32 @@ export const useTextReveal = () => {
       span.textContent = char === ' ' ? '\u00A0' : char;
       span.style.display = 'inline-block';
       span.style.opacity = '0';
-      span.style.transform = 'translateY(20px)';
+      span.style.transform = 'translateY(30px) scale(0.8)';
+      span.style.filter = 'blur(2px)';
       element.appendChild(span);
     });
 
-    gsap.to(element.children, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.02,
-      ease: "power3.out",
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: element,
-        start: "top 85%",
-        toggleActions: "play none none reverse"
+        ...config.scrollTrigger
       }
     });
 
+    tl.to(element.children, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: config.duration,
+      stagger: 0.03,
+      ease: config.ease
+    });
+
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.trigger === element) {
-          trigger.kill();
-        }
-      });
+      cleanupScrollTrigger(element);
     };
-  }, []);
+  }, [customConfig]);
 
   return ref;
 };
@@ -267,7 +301,15 @@ export const useCounterAnimation = (endValue: number, duration = 2) => {
 
     const counter = { value: 0 };
     
-    gsap.to(counter, {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        start: "top 80%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    tl.to(counter, {
       value: endValue,
       duration,
       ease: "power2.out",
@@ -275,22 +317,278 @@ export const useCounterAnimation = (endValue: number, duration = 2) => {
         if (element) {
           element.textContent = Math.floor(counter.value).toString();
         }
-      },
-      scrollTrigger: {
-        trigger: element,
-        start: "top 80%",
-        toggleActions: "play none none reverse"
       }
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.trigger === element) {
-          trigger.kill();
-        }
-      });
+      cleanupScrollTrigger(element);
     };
   }, [endValue, duration]);
+
+  return ref;
+};
+
+// New enhanced hooks for better animations
+
+export const useSlideInLeft = (delay = 0, customConfig = {}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const config = {
+      ...ANIMATION_CONFIG,
+      ...customConfig
+    };
+
+    gsap.set(element, {
+      opacity: 0,
+      x: -80,
+      scale: 0.95,
+      filter: 'blur(3px)'
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        ...config.scrollTrigger
+      }
+    });
+
+    tl.to(element, {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: config.duration,
+      delay,
+      ease: config.ease
+    });
+
+    return () => {
+      cleanupScrollTrigger(element);
+    };
+  }, [delay, customConfig]);
+
+  return ref;
+};
+
+export const useSlideInRight = (delay = 0, customConfig = {}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const config = {
+      ...ANIMATION_CONFIG,
+      ...customConfig
+    };
+
+    gsap.set(element, {
+      opacity: 0,
+      x: 80,
+      scale: 0.95,
+      filter: 'blur(3px)'
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        ...config.scrollTrigger
+      }
+    });
+
+    tl.to(element, {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: config.duration,
+      delay,
+      ease: config.ease
+    });
+
+    return () => {
+      cleanupScrollTrigger(element);
+    };
+  }, [delay, customConfig]);
+
+  return ref;
+};
+
+export const useScaleIn = (delay = 0, customConfig = {}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const config = {
+      ...ANIMATION_CONFIG,
+      ...customConfig
+    };
+
+    gsap.set(element, {
+      opacity: 0,
+      scale: 0.7,
+      filter: 'blur(5px)'
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        ...config.scrollTrigger
+      }
+    });
+
+    tl.to(element, {
+      opacity: 1,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: config.duration,
+      delay,
+      ease: "back.out(1.7)"
+    });
+
+    return () => {
+      cleanupScrollTrigger(element);
+    };
+  }, [delay, customConfig]);
+
+  return ref;
+};
+
+export const useFadeIn = (delay = 0, customConfig = {}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const config = {
+      ...ANIMATION_CONFIG,
+      ...customConfig
+    };
+
+    gsap.set(element, {
+      opacity: 0,
+      filter: 'blur(3px)'
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        ...config.scrollTrigger
+      }
+    });
+
+    tl.to(element, {
+      opacity: 1,
+      filter: 'blur(0px)',
+      duration: config.duration,
+      delay,
+      ease: config.ease
+    });
+
+    return () => {
+      cleanupScrollTrigger(element);
+    };
+  }, [delay, customConfig]);
+
+  return ref;
+};
+
+// Enhanced stagger with different directions
+export const useStaggerFromLeft = (customConfig = {}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const config = {
+      ...ANIMATION_CONFIG,
+      ...customConfig
+    };
+
+    const children = Array.from(element.children);
+    
+    gsap.set(children, {
+      opacity: 0,
+      x: -60,
+      scale: 0.9,
+      filter: 'blur(3px)'
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        ...config.scrollTrigger
+      }
+    });
+
+    tl.to(children, {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: config.duration,
+      stagger: config.stagger,
+      ease: config.ease
+    });
+
+    return () => {
+      cleanupScrollTrigger(element);
+    };
+  }, [customConfig]);
+
+  return ref;
+};
+
+export const useStaggerFromRight = (customConfig = {}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const config = {
+      ...ANIMATION_CONFIG,
+      ...customConfig
+    };
+
+    const children = Array.from(element.children);
+    
+    gsap.set(children, {
+      opacity: 0,
+      x: 60,
+      scale: 0.9,
+      filter: 'blur(3px)'
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        ...config.scrollTrigger
+      }
+    });
+
+    tl.to(children, {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: config.duration,
+      stagger: config.stagger,
+      ease: config.ease
+    });
+
+    return () => {
+      cleanupScrollTrigger(element);
+    };
+  }, [customConfig]);
 
   return ref;
 };

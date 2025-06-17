@@ -1,5 +1,5 @@
-
 import dashboardPreview from "@/../public/dashboardPreview.svg"
+import { useFadeInUp, useSlideInLeft, useSlideInRight, useStaggerFromRight } from "@/hooks/useGSAP";
 
 const features = [
   {
@@ -44,12 +44,22 @@ const features = [
 ];
 
 function DashboardPreview() {
+  const headerRef = useFadeInUp(0);
+  const imageWrapperRef = useSlideInLeft(0.3);
+  const featuresRef = useStaggerFromRight({ stagger: 0.2 });
+
   return (
     <div className="flex flex-col justify-center items-center my-10 bg-white/5 dark:bg-[#373636]/5 md:p-8 p-4 rounded-2xl shadow-xl">
-      <h1 className="text-black dark:text-white font-semibold md:text-4xl text-lg">Track Your Health Like Never Before</h1>
+      <h1 ref={headerRef} className="text-black dark:text-white font-semibold md:text-4xl text-lg">Track Your Health Like Never Before</h1>
       <div className="mt-10 md:mt-20 flex flex-col md:flex-row justify-evenly w-full items-center gap-12">
-        <img src={dashboardPreview} alt="Preview of customer dashboard" className="shadow-2xl rounded-3xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-shadow duration-300 md:w-1/2 w-full"/>
-        <div className="flex flex-col gap-6 justify-items-start items-start md:w-[550px] w-full">
+        <div ref={imageWrapperRef}>
+          <img 
+            src={dashboardPreview} 
+            alt="Preview of customer dashboard" 
+            className="shadow-2xl rounded-3xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-shadow duration-300 md:w-2/2 w-full"
+          />
+        </div>
+        <div ref={featuresRef} className="flex flex-col gap-6 justify-items-start items-start md:w-[550px] w-full">
           {features.map((feature, index) => (
             <div key={index} className="flex items-center justify-start gap-4 bg-white/5 dark:bg-[#373636] hover:shadow-lg transition-shadow duration-300 p-6 rounded-xl shadow-md w-full min-h-[80px]">
               <div className="dark:bg-[#484848] bg-[#F6F6F6] text-[#77A811] p-2 rounded-lg">

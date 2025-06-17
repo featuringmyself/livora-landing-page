@@ -1,10 +1,9 @@
-
 import { Brain, Heart, Zap, Shield, Users, Star } from "lucide-react";
-import { useFadeInUp, useStaggerAnimation } from "@/hooks/useGSAP";
+import { useFadeInUp, useStaggerFromLeft } from "@/hooks/useGSAP";
 
 const Features = () => {
   const headerRef = useFadeInUp(0);
-  const featuresRef = useStaggerAnimation();
+  const featuresRef = useStaggerFromLeft({ stagger: 0.15 });
 
   const features = [
     {
@@ -57,21 +56,25 @@ const Features = () => {
           </p>
         </div>
 
-        <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-100 group hover:-translate-y-2"
+              className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-100 group hover:-translate-y-2"
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-green-100 to-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <feature.icon className="w-7 h-7 text-green-600 group-hover:text-blue-600 transition-colors duration-300" />
+              <div className="flex items-start gap-3 md:block">
+                <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-green-100 to-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <feature.icon className="w-5 h-5 md:w-7 md:h-7 text-green-600 group-hover:text-blue-600 transition-colors duration-300" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base md:text-xl font-bold text-gray-900 mb-1 md:mb-4 group-hover:text-green-600 transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 text-xs md:text-base leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-green-600 transition-colors duration-300">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                {feature.description}
-              </p>
             </div>
           ))}
         </div>

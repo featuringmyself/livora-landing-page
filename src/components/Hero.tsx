@@ -35,7 +35,7 @@ const Hero = () => {
         scale: 1,
         duration: 1.2, 
         ease: "power3.out",
-        delay: 1
+        delay: 0.8
       }
     )
     .fromTo(buttonsRef.current?.children,
@@ -51,10 +51,10 @@ const Hero = () => {
         scale: 1,
         filter: 'blur(0px)',
         duration: 1, 
-        stagger: 0.15, 
+        stagger: 0.2, 
         ease: "elastic.out(1, 0.5)" 
       },
-      "-=0.6"
+      "-=0.8"
     );
 
     // Enhanced floating elements with 3D transforms
@@ -66,39 +66,42 @@ const Hero = () => {
           opacity: 0, 
           scale: 0.5,
           rotateX: 90,
-          z: -100
+          z: -100,
+          filter: 'blur(10px)'
         },
         { 
           opacity: 0.8, 
           scale: 1,
           rotateX: 0,
           z: 0,
+          filter: 'blur(0px)',
           duration: 1.5,
-          stagger: 0.1,
+          stagger: 0.15,
           ease: "back.out(1.7)",
-          delay: 2
+          delay: 1.2
         }
       );
 
       // Advanced continuous floating with rotation
       floatingElements.forEach((element, index) => {
         gsap.to(element, {
-          y: `+=${12 + index * 3}`,
-          x: `+=${5 + index}`,
-          rotation: `+=${360 + index * 30}`,
-          duration: 8 + index * 1.5,
+          y: `+=${15 + index * 4}`,
+          x: `+=${8 + index * 2}`,
+          rotation: `+=${360 + index * 45}`,
+          duration: 10 + index * 2,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-          delay: index * 0.4
+          delay: index * 0.3
         });
 
         // Mouse interaction
         element.addEventListener('mouseenter', () => {
           gsap.to(element, {
-            scale: 1.3,
-            rotation: '+=45',
-            duration: 0.6,
+            scale: 1.4,
+            rotation: '+=90',
+            filter: 'blur(0px)',
+            duration: 0.8,
             ease: "back.out(1.7)"
           });
         });
@@ -106,7 +109,8 @@ const Hero = () => {
         element.addEventListener('mouseleave', () => {
           gsap.to(element, {
             scale: 1,
-            duration: 0.6,
+            filter: 'blur(0px)',
+            duration: 0.8,
             ease: "back.out(1.7)"
           });
         });
@@ -118,18 +122,29 @@ const Hero = () => {
     backgroundElements.forEach((element, index) => {
       gsap.to(element, {
         rotation: 360,
-        scale: "1.1",
-        duration: 80 + index * 20,
+        scale: "1.2",
+        duration: 60 + index * 30,
         repeat: -1,
         ease: "none"
       });
 
       gsap.to(element, {
         borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-        duration: 15 + index * 5,
+        duration: 20 + index * 8,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
+      });
+
+      // Add floating motion to background orbs
+      gsap.to(element, {
+        y: `+=${50 + index * 20}`,
+        x: `+=${30 + index * 15}`,
+        duration: 15 + index * 5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: index * 2
       });
     });
 
@@ -144,6 +159,101 @@ const Hero = () => {
       });
     }
 
+    // Enhanced title animation with character reveal
+    if (titleRef.current) {
+      const titleText = titleRef.current.textContent;
+      titleRef.current.innerHTML = '';
+      
+      // Create character spans
+      const chars = titleText?.split('').map(char => 
+        char === ' ' ? '&nbsp;' : `<span class="char">${char}</span>`
+      ).join('');
+      
+      titleRef.current.innerHTML = chars || '';
+      
+      const titleChars = titleRef.current.querySelectorAll('.char');
+      
+      gsap.fromTo(titleChars,
+        { 
+          opacity: 0, 
+          y: 50,
+          rotationX: 90,
+          scale: 0.5
+        },
+        { 
+          opacity: 1, 
+          y: 0,
+          rotationX: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.03,
+          ease: "back.out(1.7)",
+          delay: 0.5
+        }
+      );
+    }
+
+    // Enhanced button hover animations
+    const buttons = buttonsRef.current?.querySelectorAll('button');
+    buttons?.forEach((button, index) => {
+      button.addEventListener('mouseenter', () => {
+        gsap.to(button, {
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+
+      button.addEventListener('mouseleave', () => {
+        gsap.to(button, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    });
+
+    // Trust indicators animation
+    const trustIndicators = document.querySelectorAll('.flex.items-center.group');
+    gsap.fromTo(trustIndicators,
+      { 
+        opacity: 0, 
+        x: -20,
+        scale: 0.9
+      },
+      { 
+        opacity: 1, 
+        x: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        delay: 2
+      }
+    );
+
+    // Arrow bounce animation
+    const arrow = document.querySelector('.animate-bounce');
+    if (arrow) {
+      gsap.to(arrow, {
+        y: 10,
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "power2.inOut",
+        delay: 2.5
+      });
+    }
+
+    return () => {
+      // Cleanup animations
+      tl.kill();
+      gsap.killTweensOf(floatingElementsRef.current?.querySelectorAll('.floating-element'));
+      gsap.killTweensOf(backgroundElements);
+      gsap.killTweensOf(titleRef.current?.querySelectorAll('.char'));
+      gsap.killTweensOf(trustIndicators);
+      gsap.killTweensOf(arrow);
+    };
   }, []);
 
   const scrollToWaitlist = () => {

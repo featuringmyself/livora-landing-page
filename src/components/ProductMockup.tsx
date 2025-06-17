@@ -1,12 +1,17 @@
-
 import { Smartphone, Zap, Leaf, CheckCircle } from "lucide-react";
+import { useFadeInUp, useSlideInLeft, useSlideInRight, useStaggerAnimation } from "@/hooks/useGSAP";
 
 const ProductMockup = () => {
+  const headerRef = useFadeInUp(0);
+  const leftContentRef = useSlideInLeft(0.3);
+  const rightContentRef = useSlideInRight(0.6);
+  const featuresRef = useStaggerAnimation({ stagger: 0.2 });
+
   return (
     <section className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <div className="animate-slide-in-left order-2 lg:order-1">
+          <div ref={leftContentRef} className="order-2 lg:order-1">
             <div className="inline-flex items-center justify-center w-10 md:w-12 h-10 md:h-12 bg-gradient-to-r from-green-100 to-emerald-100 rounded-full mb-4 md:mb-6 animate-float">
               <Smartphone className="w-5 md:w-6 h-5 md:h-6 text-green-600" />
             </div>
@@ -18,7 +23,7 @@ const ProductMockup = () => {
               personalized meal recommendations that evolve with your health journey.
             </p>
             
-            <div className="space-y-4 md:space-y-6">
+            <div ref={featuresRef} className="space-y-4 md:space-y-6">
               <div className="flex items-start space-x-3 md:space-x-4 group cursor-pointer">
                 <div className="bg-green-100 rounded-full p-2 mt-1 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 ">
                   <CheckCircle className="w-3 md:w-4 h-3 md:h-4 text-green-600" />
@@ -51,7 +56,7 @@ const ProductMockup = () => {
             </div>
           </div>
           
-          <div className="relative animate-slide-in-right order-1 lg:order-2 flex justify-center">
+          <div ref={rightContentRef} className="relative order-1 lg:order-2 flex justify-center">
             <div className="bg-white rounded-3xl shadow-2xl p-6 md:p-8 max-w-xs sm:max-w-sm mx-auto hover:shadow-3xl transition-all duration-500 hover-lift group">
               <div className="bg-gradient-to-r from-green-600 to-emerald-600 h-2 rounded-full mb-4 md:mb-6 group-hover:h-3 transition-all duration-300"></div>
               <div className="space-y-3 md:space-y-4">
