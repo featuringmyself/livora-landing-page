@@ -377,7 +377,7 @@ const Hero = () => {
           </div>
 
           {/* Enhanced Trust Indicators */}
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 md:gap-8 text-sm md:text-lg text-gray-600 mb-8 md:mb-12 px-4">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 md:gap-8 text-sm md:text-lg text-gray-600 mb-8 md:mb-12 px-4">
             <div className="flex items-center group cursor-pointer">
               <div className="w-3 md:w-4 h-3 md:h-4 bg-gradient-to-r from-green-400 to-green-600 rounded-full mr-2 md:mr-3 shadow-lg group-hover:shadow-green-400/50 transition-all duration-500 group-hover:scale-125"></div>
               <span className="font-semibold group-hover:text-green-600 transition-colors duration-300">AI-Powered Nutrition</span>

@@ -51,7 +51,7 @@ const Waitlist = () => {
             Join the <span className="text-green-200 animate-pulse">Livora</span> Revolution
           </h2>
           
-          <p className="text-lg md:text-xl text-green-100 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm md:text-xl text-green-100 mb-8 max-w-3xl mx-auto leading-relaxed">
             Be among the first to experience India's most intelligent meal planning platform. 
             Get early access + weekly health tips delivered straight to your inbox.
           </p>

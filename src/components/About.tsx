@@ -38,7 +38,7 @@ const About = () => {
           {/* Left side - Content */}
           <div className="space-y-8">
             <div className="space-y-6">
-              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+              <h3 className="text-2xl md:text-4xl font-bold text-gray-900 leading-tight">
                 Revolutionizing healthy eating with{" "}
                 <span className="text-gradient bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                   AI-powered
@@ -46,7 +46,7 @@ const About = () => {
                 personalized meal plans
               </h3>
               
-              <p className="text-xl text-gray-600 leading-relaxed">
+              <p className="md:text-xl text-base text-gray-600 leading-relaxed">
                 We combine cutting-edge AI with expert nutritionists to create customized meal plans that are both nutritious and delicious.
               </p>
 
@@ -55,7 +55,7 @@ const About = () => {
                   <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <div className="w-2 h-2 bg-green-600 rounded-full"></div>
                   </div>
-                  <p className="text-lg text-gray-700">
+                  <p className="text-sm md:text-lg text-gray-700">
                     Fresh, dietitian-approved meals delivered to your doorstep
                   </p>
                 </div>
@@ -64,7 +64,7 @@ const About = () => {
                   <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <div className="w-2 h-2 bg-green-600 rounded-full"></div>
                   </div>
-                  <p className="text-lg text-gray-700">
+                  <p className="text-sm md:text-lg text-gray-700">
                     Flexible subscriptions with full control - pause, modify, or cancel anytime
                   </p>
                 </div>
@@ -73,7 +73,7 @@ const About = () => {
                   <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <div className="w-2 h-2 bg-green-600 rounded-full"></div>
                   </div>
-                  <p className="text-lg text-gray-700">
+                  <p className="text-sm md:text-lg text-gray-700">
                     Customize meals, swap ingredients, and track live macros
                   </p>
                 </div>
@@ -81,10 +81,10 @@ const About = () => {
             </div>
 
             {/* CTA */}
-            <div className="pt-6">
+            <div className="md:pt-6 pt-2 pb-6">
               <button 
                 onClick={scrollToWaitlist}
-                className="inline-flex items-center gap-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-5 rounded-2xl font-semibold text-xl shadow-2xl hover:shadow-green-200/50 hover:scale-105 transition-all duration-300 group"
+                className="inline-flex items-center gap-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white md:px-8 px-4 md:py-5 py-3 rounded-2xl font-semibold md:text-xl text-sm shadow-2xl hover:shadow-green-200/50 hover:scale-105 transition-all duration-300 group"
               >
                 <span>Get Ready for the Health Revolution</span>
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" />

@@ -51,7 +51,7 @@ const Features = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Why Choose <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Livora</span>?
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-sm md:text-xl text-gray-600 max-w-3xl mx-auto">
             Discover the features that make Livora the most advanced nutrition platform for Indian families.
           </p>
         </div>
