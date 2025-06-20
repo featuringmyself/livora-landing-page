@@ -18,7 +18,7 @@ const ProductMockup = () => {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 hover:scale-105 transition-transform duration-300">
               Your AI Nutritionist, <span className="text-gradient">Always Ready</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 hover:text-gray-700 transition-colors duration-300">
+            <p className="text-sm md:text-xl text-gray-600 mb-6 md:mb-8 hover:text-gray-700 transition-colors duration-300">
               Our intelligent platform learns your preferences, tracks your goals, and delivers 
               personalized meal recommendations that evolve with your health journey.
             </p>

@@ -53,7 +53,7 @@ const FAQ = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Frequently Asked <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Questions</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-sm md:text-xl text-gray-600 md:max-w-2xl max-w-[80%] mx-auto">
             Everything you need to know about Livora and how it works for your health journey.
           </p>
         </div>
@@ -68,7 +68,7 @@ const FAQ = () => {
                 className="w-full px-6 md:px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50/50 transition-colors duration-300 group"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
-                <h3 className="text-lg md:text-xl font-semibold text-gray-900 pr-4 group-hover:text-blue-600 transition-colors duration-300">
+                <h3 className="text-md md:text-xl leading-tight md:leading-normal font-semibold text-gray-900 pr-4 group-hover:text-blue-600 transition-colors duration-300">
                   {faq.question}
                 </h3>
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-all duration-300">
@@ -86,7 +86,7 @@ const FAQ = () => {
                   : 'max-h-0 opacity-0'
               } overflow-hidden`}>
                 <div className="px-6 md:px-8 pb-6 border-t border-gray-100">
-                  <p className="text-gray-600 leading-relaxed pt-4 text-base md:text-lg">
+                  <p className="text-gray-600 leading-relaxed pt-4 text-sm md:text-lg">
                     {faq.answer}
                   </p>
                 </div>
