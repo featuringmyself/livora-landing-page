@@ -1,4 +1,4 @@
-import dashboardPreview from "@/../public/dashboardPreview.svg"
+import dashboardPreview from "@/../public/dashboardPreview.png"
 import { useFadeInUp, useSlideInLeft, useSlideInRight, useStaggerFromRight } from "@/hooks/useGSAP";
 
 const features = [
@@ -56,7 +56,7 @@ function DashboardPreview() {
           <img 
             src={dashboardPreview} 
             alt="Preview of customer dashboard" 
-            className="shadow-2xl rounded-3xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-shadow duration-300 md:w-2/2 w-full"
+            className="shadow-2xl rounded-3xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-shadow duration-300 md:w-3/4 w-full"
           />
         </div>
         <div ref={featuresRef} className="flex flex-col gap-6 justify-items-start items-start md:w-[550px] w-full">
