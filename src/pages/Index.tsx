@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 // import MealShowcase from "@/components/MealShowcase";
 import Features from "@/components/Features";
@@ -11,24 +10,8 @@ import Waitlist from "@/components/Waitlist";
 import Footer from "@/components/Footer";
 import DashboardPreview from "@/components/DashboardPreview";
 import { ParticleBackground } from "@/components/ui/particle-background";
-import { PageLoader } from "@/components/ui/loading-animation";
 
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <PageLoader />;
-  }
-
   return (
     <div className="min-h-screen relative">
       <ParticleBackground 
