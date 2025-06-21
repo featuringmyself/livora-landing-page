@@ -577,6 +577,7 @@ export const useStaggerFromRight = (customConfig = {}) => {
 
     const children = Array.from(element.children);
     
+    // Set initial state for all children
     gsap.set(children, {
       opacity: 0,
       x: 60,
@@ -585,6 +586,7 @@ export const useStaggerFromRight = (customConfig = {}) => {
       force3D: true
     });
 
+    // Create staggered animation from right
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: element,
@@ -607,6 +609,255 @@ export const useStaggerFromRight = (customConfig = {}) => {
       cleanupScrollTrigger(element);
     };
   }, [customConfig]);
+
+  return ref;
+};
+
+// New enhanced animation hooks
+export const useSmoothScroll = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    gsap.to(element, {
+      yPercent: -100,
+      ease: "none",
+      scrollTrigger: {
+        trigger: element,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    return () => {
+      cleanupScrollTrigger(element);
+    };
+  }, []);
+
+  return ref;
+};
+
+export const useTiltEffect = (intensity = 0.1) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = element.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) * intensity;
+      const rotateY = (centerX - x) * intensity;
+      
+      gsap.to(element, {
+        rotateX: rotateX,
+        rotateY: rotateY,
+        duration: 0.5,
+        ease: "power2.out",
+        transformPerspective: 1000
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(element, {
+        rotateX: 0,
+        rotateY: 0,
+        duration: 0.8,
+        ease: "elastic.out(1, 0.3)"
+      });
+    };
+
+    element.addEventListener('mousemove', handleMouseMove);
+    element.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      element.removeEventListener('mousemove', handleMouseMove);
+      element.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [intensity]);
+
+  return ref;
+};
+
+export const usePulseEffect = (interval = 2000) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const tl = gsap.timeline({ repeat: -1 });
+    
+    tl.to(element, {
+      scale: 1.05,
+      duration: 1,
+      ease: "power2.inOut"
+    })
+    .to(element, {
+      scale: 1,
+      duration: 1,
+      ease: "power2.inOut"
+    });
+
+    return () => {
+      tl.kill();
+    };
+  }, [interval]);
+
+  return ref;
+};
+
+export const useFloatingAnimation = (amplitude = 10, duration = 3) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    gsap.to(element, {
+      y: `+=${amplitude}`,
+      duration: duration,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    return () => {
+      gsap.killTweensOf(element);
+    };
+  }, [amplitude, duration]);
+
+  return ref;
+};
+
+export const useTypewriterEffect = (text: string, speed = 50) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    element.textContent = '';
+    let index = 0;
+
+    const typeNextChar = () => {
+      if (index < text.length) {
+        element.textContent += text[index];
+        index++;
+        setTimeout(typeNextChar, speed);
+      }
+    };
+
+    typeNextChar();
+  }, [text, speed]);
+
+  return ref;
+};
+
+export const useGradientAnimation = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    gsap.to(element, {
+      backgroundPosition: "200% center",
+      duration: 3,
+      repeat: -1,
+      ease: "none"
+    });
+  }, []);
+
+  return ref;
+};
+
+export const useScrollProgress = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    gsap.to(element, {
+      scaleX: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+        onUpdate: (self) => {
+          gsap.set(element, { scaleX: self.progress });
+        }
+      }
+    });
+
+    return () => {
+      cleanupScrollTrigger(element);
+    };
+  }, []);
+
+  return ref;
+};
+
+export const useIntersectionObserver = (callback: (isIntersecting: boolean) => void, options = {}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        callback(entry.isIntersecting);
+      });
+    }, {
+      threshold: 0.1,
+      ...options
+    });
+
+    observer.observe(element);
+
+    return () => {
+      observer.unobserve(element);
+    };
+  }, [callback, options]);
+
+  return ref;
+};
+
+export const useMouseFollower = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      gsap.to(element, {
+        x: e.clientX - element.offsetWidth / 2,
+        y: e.clientY - element.offsetHeight / 2,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   return ref;
 };

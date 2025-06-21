@@ -1,5 +1,5 @@
 import dashboardPreview from "@/../public/dashboardPreview.png"
-import { useFadeInUp, useSlideInLeft, useSlideInRight, useStaggerFromRight } from "@/hooks/useGSAP";
+import { useFadeInUp, useSlideInLeft, useSlideInRight, useStaggerFromRight, useTiltEffect, useFloatingAnimation } from "@/hooks/useGSAP";
 
 const features = [
   {
@@ -47,29 +47,69 @@ function DashboardPreview() {
   const headerRef = useFadeInUp(0);
   const imageWrapperRef = useSlideInLeft(0.3);
   const featuresRef = useStaggerFromRight({ stagger: 0.2 });
+  const floatingImageRef = useFloatingAnimation(15, 4);
 
   return (
-    <div className="flex flex-col justify-center items-center my-10 bg-white/5 dark:bg-[#373636]/5 md:p-8 p-4 rounded-2xl shadow-xl">
-      <h1 ref={headerRef} className="text-black dark:text-white font-semibold md:text-4xl text-lg">Track Your Health Like Never Before</h1>
-      <div className="mt-10 md:mt-20 flex flex-col md:flex-row justify-evenly w-full items-center gap-12">
-        <div ref={imageWrapperRef}>
-          <img 
-            src={dashboardPreview} 
-            alt="Preview of customer dashboard" 
-            className="shadow-2xl rounded-3xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-shadow duration-300 md:w-3/4 w-full"
-          />
+    <div className="flex flex-col justify-center items-center my-10 bg-white/5 dark:bg-[#373636]/5 md:p-8 p-4 rounded-2xl shadow-xl relative overflow-hidden">
+      {/* Background gradient effect - much more subtle */}
+      <div className="absolute inset-0 bg-gradient-to-br from-green-50/10 via-blue-50/5 to-purple-50/10 opacity-0 hover:opacity-100 transition-opacity duration-700" />
+      
+      <h1 ref={headerRef} className="text-black dark:text-white font-semibold md:text-4xl text-lg relative z-10">
+        Track Your Health Like Never Before
+      </h1>
+      
+      <div className="mt-10 md:mt-20 flex flex-col md:flex-row justify-evenly w-full items-center gap-12 relative z-10">
+        <div ref={imageWrapperRef} className="relative">
+          <div 
+            ref={floatingImageRef}
+            className="relative"
+          >
+            <img 
+              src={dashboardPreview} 
+              alt="Preview of customer dashboard" 
+              className="shadow-2xl rounded-3xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 md:w-3/4 w-full hover:scale-105"
+            />
+          </div>
         </div>
+        
         <div ref={featuresRef} className="flex flex-col gap-6 justify-items-start items-start md:w-[550px] w-full">
-          {features.map((feature, index) => (
-            <div key={index} className="flex items-center justify-start gap-4 bg-white/5 dark:bg-[#373636] hover:shadow-lg transition-shadow duration-300 p-6 rounded-xl shadow-md w-full min-h-[80px]">
-              <div className="dark:bg-[#484848] bg-[#F6F6F6] text-[#77A811] p-2 rounded-lg">
-                {feature.icon}
-              </div>
-              <div className="flex flex-col gap-1">
-                <h3 className="text-black dark:text-white">{feature.title}</h3>
-              </div>
-            </div>
-          ))}
+          {features.map((feature, index) => {
+            const FeatureCard = () => {
+              const tiltRef = useTiltEffect(0.03);
+              
+              return (
+                <div 
+                  ref={tiltRef}
+                  key={index} 
+                  className="flex items-center justify-start gap-4 bg-white/5 dark:bg-[#373636] hover:shadow-xl transition-all duration-300 p-6 rounded-xl shadow-md w-full min-h-[80px] group cursor-pointer relative overflow-hidden"
+                >
+                  {/* Hover background effect - very subtle */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-50/10 to-blue-50/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  <div className="dark:bg-[#484848] bg-[#F6F6F6] text-[#77A811] p-2 rounded-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-xl relative z-10">
+                    <div className="group-hover:scale-110 transition-transform duration-300">
+                      {feature.icon}
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col gap-1 relative z-10">
+                    <h3 className="text-black dark:text-white group-hover:text-green-600 transition-colors duration-300 group-hover:translate-x-1">
+                      {feature.title}
+                    </h3>
+                  </div>
+                  
+                  {/* Animated border - very subtle */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-green-400/5 to-blue-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  {/* Floating particles - smaller and more subtle */}
+                  <div className="absolute top-2 right-2 w-1 h-1 bg-green-400/40 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:animate-ping" />
+                  <div className="absolute bottom-2 left-2 w-1 h-1 bg-blue-400/40 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:animate-ping" style={{ animationDelay: '0.5s' }} />
+                </div>
+              );
+            };
+            
+            return <FeatureCard key={index} />;
+          })}
         </div>
       </div>
     </div>
