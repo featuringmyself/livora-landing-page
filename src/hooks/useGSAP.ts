@@ -6,14 +6,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Enhanced animation configuration
 const ANIMATION_CONFIG = {
-  duration: 1.2,
-  ease: "power3.out",
-  stagger: 0.1,
+  duration: 0.7,
+  ease: "power2.out",
+  stagger: 0.07,
   scrollTrigger: {
     start: "top 85%",
     end: "bottom 15%",
-    toggleActions: "play none none none", // Changed to prevent jarring reverse animations
-    markers: false
+    toggleActions: "play none none none",
+    markers: false,
+    once: true
   }
 };
 
@@ -58,7 +59,8 @@ export const useFadeInUp = (delay = 0, customConfig = {}) => {
       opacity: 0,
       y: 60,
       scale: 0.95,
-      filter: 'blur(5px)'
+      willChange: 'opacity, transform',
+      force3D: true
     });
 
     // Create the animation
@@ -73,7 +75,8 @@ export const useFadeInUp = (delay = 0, customConfig = {}) => {
       opacity: 1,
       y: 0,
       scale: 1,
-      filter: 'blur(0px)',
+      willChange: 'opacity, transform',
+      force3D: true,
       duration: config.duration,
       delay,
       ease: config.ease
@@ -106,7 +109,8 @@ export const useStaggerAnimation = (customConfig = {}) => {
       opacity: 0,
       y: 40,
       scale: 0.9,
-      filter: 'blur(3px)'
+      willChange: 'opacity, transform',
+      force3D: true
     });
 
     // Create staggered animation
@@ -121,7 +125,8 @@ export const useStaggerAnimation = (customConfig = {}) => {
       opacity: 1,
       y: 0,
       scale: 1,
-      filter: 'blur(0px)',
+      willChange: 'opacity, transform',
+      force3D: true,
       duration: config.duration,
       stagger: config.stagger,
       ease: config.ease
@@ -241,7 +246,8 @@ export const useTextReveal = (customConfig = {}) => {
       opacity: 1,
       y: 0,
       scale: 1,
-      filter: 'blur(0px)',
+      willChange: 'opacity, transform',
+      force3D: true,
       duration: config.duration,
       stagger: 0.03,
       ease: config.ease
@@ -346,7 +352,8 @@ export const useSlideInLeft = (delay = 0, customConfig = {}) => {
       opacity: 0,
       x: -80,
       scale: 0.95,
-      filter: 'blur(3px)'
+      willChange: 'opacity, transform',
+      force3D: true
     });
 
     const tl = gsap.timeline({
@@ -360,7 +367,8 @@ export const useSlideInLeft = (delay = 0, customConfig = {}) => {
       opacity: 1,
       x: 0,
       scale: 1,
-      filter: 'blur(0px)',
+      willChange: 'opacity, transform',
+      force3D: true,
       duration: config.duration,
       delay,
       ease: config.ease
@@ -390,7 +398,8 @@ export const useSlideInRight = (delay = 0, customConfig = {}) => {
       opacity: 0,
       x: 80,
       scale: 0.95,
-      filter: 'blur(3px)'
+      willChange: 'opacity, transform',
+      force3D: true
     });
 
     const tl = gsap.timeline({
@@ -404,7 +413,8 @@ export const useSlideInRight = (delay = 0, customConfig = {}) => {
       opacity: 1,
       x: 0,
       scale: 1,
-      filter: 'blur(0px)',
+      willChange: 'opacity, transform',
+      force3D: true,
       duration: config.duration,
       delay,
       ease: config.ease
@@ -433,7 +443,8 @@ export const useScaleIn = (delay = 0, customConfig = {}) => {
     gsap.set(element, {
       opacity: 0,
       scale: 0.7,
-      filter: 'blur(5px)'
+      willChange: 'opacity, transform',
+      force3D: true
     });
 
     const tl = gsap.timeline({
@@ -446,7 +457,8 @@ export const useScaleIn = (delay = 0, customConfig = {}) => {
     tl.to(element, {
       opacity: 1,
       scale: 1,
-      filter: 'blur(0px)',
+      willChange: 'opacity, transform',
+      force3D: true,
       duration: config.duration,
       delay,
       ease: "back.out(1.7)"
@@ -474,7 +486,8 @@ export const useFadeIn = (delay = 0, customConfig = {}) => {
 
     gsap.set(element, {
       opacity: 0,
-      filter: 'blur(3px)'
+      willChange: 'opacity, transform',
+      force3D: true
     });
 
     const tl = gsap.timeline({
@@ -486,7 +499,8 @@ export const useFadeIn = (delay = 0, customConfig = {}) => {
 
     tl.to(element, {
       opacity: 1,
-      filter: 'blur(0px)',
+      willChange: 'opacity, transform',
+      force3D: true,
       duration: config.duration,
       delay,
       ease: config.ease
@@ -519,7 +533,8 @@ export const useStaggerFromLeft = (customConfig = {}) => {
       opacity: 0,
       x: -60,
       scale: 0.9,
-      filter: 'blur(3px)'
+      willChange: 'opacity, transform',
+      force3D: true
     });
 
     const tl = gsap.timeline({
@@ -533,7 +548,8 @@ export const useStaggerFromLeft = (customConfig = {}) => {
       opacity: 1,
       x: 0,
       scale: 1,
-      filter: 'blur(0px)',
+      willChange: 'opacity, transform',
+      force3D: true,
       duration: config.duration,
       stagger: config.stagger,
       ease: config.ease
@@ -565,7 +581,8 @@ export const useStaggerFromRight = (customConfig = {}) => {
       opacity: 0,
       x: 60,
       scale: 0.9,
-      filter: 'blur(3px)'
+      willChange: 'opacity, transform',
+      force3D: true
     });
 
     const tl = gsap.timeline({
@@ -579,7 +596,8 @@ export const useStaggerFromRight = (customConfig = {}) => {
       opacity: 1,
       x: 0,
       scale: 1,
-      filter: 'blur(0px)',
+      willChange: 'opacity, transform',
+      force3D: true,
       duration: config.duration,
       stagger: config.stagger,
       ease: config.ease

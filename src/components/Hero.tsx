@@ -57,94 +57,71 @@ const Hero = () => {
       "-=0.8"
     );
 
-    // Enhanced floating elements with 3D transforms
+    // Enhanced floating elements with 3D transforms (reduce number of elements and remove blur)
     if (floatingElementsRef.current) {
       const floatingElements = floatingElementsRef.current.querySelectorAll('.floating-element');
-      
-      gsap.fromTo(floatingElements,
-        { 
-          opacity: 0, 
-          scale: 0.5,
-          rotateX: 90,
-          z: -100,
-          filter: 'blur(10px)'
-        },
-        { 
-          opacity: 0.8, 
-          scale: 1,
-          rotateX: 0,
-          z: 0,
-          filter: 'blur(0px)',
-          duration: 1.5,
-          stagger: 0.15,
-          ease: "back.out(1.7)",
-          delay: 1.2
-        }
-      );
-
-      // Advanced continuous floating with rotation
+      // Only animate the first 2 elements for performance
       floatingElements.forEach((element, index) => {
+        if (index > 1) return;
+        gsap.fromTo(element,
+          {
+            opacity: 0,
+            scale: 0.7,
+            rotateX: 60,
+            z: -50,
+            willChange: 'opacity, transform',
+            force3D: true
+          },
+          {
+            opacity: 0.8,
+            scale: 1,
+            rotateX: 0,
+            z: 0,
+            willChange: 'opacity, transform',
+            force3D: true,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power2.out",
+            delay: 0.7
+          }
+        );
+        // Only one continuous floating tween per element
         gsap.to(element, {
-          y: `+=${15 + index * 4}`,
-          x: `+=${8 + index * 2}`,
-          rotation: `+=${360 + index * 45}`,
-          duration: 10 + index * 2,
+          y: `+=${10 + index * 3}`,
+          x: `+=${5 + index * 2}`,
+          duration: 8 + index * 2,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-          delay: index * 0.3
-        });
-
-        // Mouse interaction
-        element.addEventListener('mouseenter', () => {
-          gsap.to(element, {
-            scale: 1.4,
-            rotation: '+=90',
-            filter: 'blur(0px)',
-            duration: 0.8,
-            ease: "back.out(1.7)"
-          });
-        });
-
-        element.addEventListener('mouseleave', () => {
-          gsap.to(element, {
-            scale: 1,
-            filter: 'blur(0px)',
-            duration: 0.8,
-            ease: "back.out(1.7)"
-          });
+          delay: index * 0.2,
+          willChange: 'transform',
+          force3D: true
         });
       });
     }
 
-    // Background orbs with morphing animation
+    // Background orbs: only animate scale and position, no blur or borderRadius
     const backgroundElements = document.querySelectorAll('.bg-gradient-orb');
     backgroundElements.forEach((element, index) => {
       gsap.to(element, {
-        rotation: 360,
-        scale: "1.2",
-        duration: 60 + index * 30,
-        repeat: -1,
-        ease: "none"
-      });
-
-      gsap.to(element, {
-        borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-        duration: 20 + index * 8,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-
-      // Add floating motion to background orbs
-      gsap.to(element, {
-        y: `+=${50 + index * 20}`,
-        x: `+=${30 + index * 15}`,
-        duration: 15 + index * 5,
+        scale: 1.1,
+        duration: 30 + index * 10,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
-        delay: index * 2
+        willChange: 'transform',
+        force3D: true
+      });
+      gsap.to(element, {
+        y: `+=${20 + index * 10}`,
+        x: `+=${10 + index * 5}`,
+        duration: 10 + index * 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: index * 1,
+        willChange: 'transform',
+        force3D: true
       });
     });
 
