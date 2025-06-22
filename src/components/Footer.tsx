@@ -32,12 +32,12 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-white">Get in Touch</h4>
             <ul className="space-y-2 text-gray-300">
-              <li>rudra@dodox.in</li>
-              <li>+91 7029835611</li>
+              <li>info@livoralife.com</li>
+              <li>+91 90793 84757</li>
               <li className="pt-4">
                 <div className="flex space-x-4">
-                  <a href="https://www.instagram.com/livora" className="hover:text-green-400 transition-colors">Instagram</a>
-                  <a href="https://www.x.com/livora" className="hover:text-green-400 transition-colors">Twitter</a>
+                  <a href="https://www.instagram.com/livoraindia" className="hover:text-green-400 transition-colors">Instagram</a>
+                  <a href="https://www.facebook.com/livoraIndia" className="hover:text-green-400 transition-colors">Facebook</a>
                 </div>
               </li>
             </ul>
