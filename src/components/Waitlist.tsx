@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import axios from 'axios';
 import { Mail, Gift, Crown, Zap, CheckCircle, Sparkles, Bell, Star } from "lucide-react";
 import { useTiltEffect, useFloatingAnimation, usePulseEffect } from "@/hooks/useGSAP";
+
 
 const MemoizedEmailInput = React.memo(function MemoizedEmailInput({ value, onChange }: { value: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
   return (
@@ -139,10 +141,21 @@ const Waitlist = () => {
     console.log("Waitlist signup:", email);
     setIsSubmitted(true);
     setEmail("");
-    toast({
-      title: "Welcome to Livora! 🎉",
-      description: "You'll get early access + exclusive health tips delivered to your inbox.",
-    });
+    axios.post('http://localhost:8004/api/leads/create', { email })
+      .then(() => {
+        toast({
+          title: "Welcome to Livora! 🎉",
+          description: "You'll get early access + exclusive health tips delivered to your inbox.",
+        });
+      })
+      .catch((error) => {
+        console.error("Error signing up for waitlist:", error.response.data.message);
+        toast({
+          title: "Oops!",
+          description: error.response?.data?.message || "Please try again later.",
+        });
+      });
+
   };
 
   return (
