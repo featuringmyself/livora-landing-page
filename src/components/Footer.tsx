@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -50,8 +51,8 @@ const Footer = () => {
               © 2025 Livora. All rights reserved.
             </div>
             <div className="flex flex-nowrap space-x-6 text-xs whitespace-nowrap text-gray-400">
-              <a href="#" className="hover:text-green-400  transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-green-400 transition-colors">Terms of Service</a>
+              <Link to="/privacy-policy" className="hover:text-green-400  transition-colors">Privacy Policy</Link>
+              <Link to="/terms-of-service" className="hover:text-green-400 transition-colors">Terms of Service</Link>
               <div className="flex items-center space-x-2">
                 <div className="w-4 h-4 bg-green-500 rounded-full"></div>
                 <span>Secured by Stripe</span>
