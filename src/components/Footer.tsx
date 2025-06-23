@@ -34,7 +34,7 @@ const Footer = () => {
             <h4 className="font-semibold mb-4 text-white">Get in Touch</h4>
             <ul className="space-y-2 text-gray-300">
               <li>info@livoralife.com</li>
-              <li>+91 90793 84757</li>
+              <li>+91 70736 02690</li>
               <li className="pt-4">
                 <div className="flex space-x-4">
                   <a href="https://www.instagram.com/livoraindia" className="hover:text-green-400 transition-colors">Instagram</a>
