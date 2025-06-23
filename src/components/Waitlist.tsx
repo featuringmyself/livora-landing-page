@@ -141,7 +141,7 @@ const Waitlist = () => {
     console.log("Waitlist signup:", email);
     setIsSubmitted(true);
     setEmail("");
-    axios.post('http://localhost:8004/api/leads/create', { email })
+    axios.post('https://livoralife.com/api/leads/create', { email })
       .then(() => {
         toast({
           title: "Welcome to Livora! 🎉",
