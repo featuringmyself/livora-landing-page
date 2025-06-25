@@ -141,21 +141,32 @@ const Waitlist = () => {
     console.log("Waitlist signup:", email);
     setIsSubmitted(true);
     setEmail("");
-    axios.post('https://livoralife.com/api/leads/create', { email })
-      .then(() => {
-        toast({
-          title: "Welcome to Livora! 🎉",
-          description: "You'll get early access + exclusive health tips delivered to your inbox.",
-        });
+    // Use VITE_BACKEND_URL if available, otherwise fallback to localhost
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8004';
+    console.log(backendUrl);
+    axios.post(`${backendUrl}/leads/create`, { email })
+      .then((response) => {
+        if (response && response.data) {
+          toast({
+            title: "Welcome to Livora! 🎉",
+            description: "You'll get early access + exclusive health tips delivered to your inbox.",
+          });
+        } else {
+          toast({
+            title: "Oops!",
+            description: "Unexpected response from server.",
+          });
+          console.log("Unexpected response from server:", response);
+        }
       })
       .catch((error) => {
-        console.error("Error signing up for waitlist:", error.response.data.message);
+        const message = error?.response?.data?.message || error?.message || "Please try again later.";
+        console.error("Error signing up for waitlist:", message);
         toast({
           title: "Oops!",
-          description: error.response?.data?.message || "Please try again later.",
+          description: message,
         });
       });
-
   };
 
   return (

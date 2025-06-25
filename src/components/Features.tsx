@@ -68,6 +68,7 @@ const Features = () => {
             return (
               <div 
                 ref={tiltRef}
+                key={feature.title}
                 className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 group hover:-translate-y-2 cursor-pointer relative overflow-hidden"
               >
                 {/* Hover background effect - reduced opacity */}
