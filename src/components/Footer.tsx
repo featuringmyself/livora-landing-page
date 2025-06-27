@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaInstagram, FaFacebook } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -22,10 +23,10 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-white">Coming Soon</h4>
             <ul className="space-y-2 text-gray-300">
-              <li><a href="#" className="hover:text-green-400 transition-colors">Meal Plans</a></li>
-              <li><a href="#" className="hover:text-green-400 transition-colors">Healthy Snacks</a></li>
-              <li><a href="#" className="hover:text-green-400 transition-colors">Nutrition Guide</a></li>
-              <li><a href="#" className="hover:text-green-400 transition-colors">About Us</a></li>
+              <li><a href="#footer" className="hover:text-green-400 transition-colors">Meal Plans</a></li>
+              <li><a href="#footer" className="hover:text-green-400 transition-colors">Healthy Snacks</a></li>
+              <li><a href="#footer" className="hover:text-green-400 transition-colors">Nutrition Guide</a></li>
+              <li><a href="#footer" className="hover:text-green-400 transition-colors">About Us</a></li>
             </ul>
           </div>
 
@@ -37,8 +38,14 @@ const Footer = () => {
               <li>+91 70736 02690</li>
               <li className="pt-4">
                 <div className="flex space-x-4">
-                  <a href="https://www.instagram.com/livoraindia" className="hover:text-green-400 transition-colors">Instagram</a>
-                  <a href="https://www.facebook.com/livoraIndia" className="hover:text-green-400 transition-colors">Facebook</a>
+                  <a href="https://www.instagram.com/livoralife_com" className="hover:text-green-400 transition-colors flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+                    <FaInstagram />
+                    Instagram
+                  </a>
+                  <a href="https://www.facebook.com/livoraIndia" className="hover:text-green-400 transition-colors flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+                    <FaFacebook />
+                    Facebook
+                  </a>
                 </div>
               </li>
             </ul>
