@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import ReactGA from 'react-ga4';
 import Hero from "@/components/Hero";
 // import MealShowcase from "@/components/MealShowcase";
 import Features from "@/components/Features";
@@ -12,6 +14,10 @@ import DashboardPreview from "@/components/DashboardPreview";
 import { ParticleBackground } from "@/components/ui/particle-background";
 
 const Index = () => {
+  useEffect(()=>{
+    ReactGA.initialize('G-Z26DWLB985');
+    ReactGA.send({hitType: 'pageview', page: '/', title: 'Home Page'});
+  },[])
   return (
     <div className="min-h-screen relative">
       <ParticleBackground 
