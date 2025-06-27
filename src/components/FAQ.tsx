@@ -1,10 +1,58 @@
 import { useState } from "react";
 import { ChevronDown, HelpCircle, Plus, Minus } from "lucide-react";
-import { useFadeInUp, useStaggerAnimation, useTiltEffect, usePulseEffect } from "@/hooks/useGSAP";
+import { useFadeInUp, useTiltEffect, usePulseEffect } from "@/hooks/useGSAP";
+
+const FAQItem = ({ faq, index, openIndex, setOpenIndex }: {
+  faq: { question: string; answer: string };
+  index: number;
+  openIndex: number | null;
+  setOpenIndex: (idx: number | null) => void;
+}) => {
+  const tiltRef = useTiltEffect(0.02);
+  return (
+    <div
+      ref={tiltRef}
+      className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden relative"
+    >
+      {/* Hover background effect - very subtle */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-50/10 to-purple-50/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <button
+        className="w-full px-6 md:px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50/50 transition-colors duration-300 group relative z-10"
+        onClick={() => setOpenIndex(openIndex === index ? null : index)}
+      >
+        <h3 className="text-md md:text-xl leading-tight md:leading-normal font-semibold text-gray-900 pr-4 group-hover:text-blue-600 transition-colors duration-300 group-hover:translate-x-1">
+          {faq.question}
+        </h3>
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+          {openIndex === index ? (
+            <Minus className="w-4 h-4 text-blue-600 transition-transform duration-300 rotate-180" />
+          ) : (
+            <Plus className="w-4 h-4 text-blue-600 transition-transform duration-300" />
+          )}
+        </div>
+      </button>
+      <div
+        className={`transition-all duration-500 ease-in-out ${
+          openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        } overflow-hidden`}
+      >
+        <div className="px-6 md:px-8 pb-6 border-t border-gray-100 relative z-10">
+          <p className="text-gray-600 leading-relaxed pt-4 text-sm md:text-lg">
+            {faq.answer}
+          </p>
+        </div>
+      </div>
+      {/* Animated border - very subtle */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400/5 to-purple-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Floating particles - smaller and more subtle */}
+      <div className="absolute top-2 right-2 w-1 h-1 bg-blue-400/40 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:animate-ping" />
+      <div className="absolute bottom-2 left-2 w-1 h-1 bg-purple-400/40 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:animate-ping" style={{ animationDelay: '0.5s' }} />
+    </div>
+  );
+};
 
 const FAQ = () => {
   const headerRef = useFadeInUp(0);
-  const faqRef = useStaggerAnimation();
   const pulseRef = usePulseEffect(3000);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -67,60 +115,16 @@ const FAQ = () => {
           </p>
         </div>
 
-        <div ref={faqRef} className="space-y-3">
-          {faqs.map((faq, index) => {
-            const FAQItem = () => {
-              const tiltRef = useTiltEffect(0.02);
-              
-              return (
-                <div 
-                  ref={tiltRef}
-                  key={index}
-                  className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden relative"
-                >
-                  {/* Hover background effect - very subtle */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-50/10 to-purple-50/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  <button
-                    className="w-full px-6 md:px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50/50 transition-colors duration-300 group relative z-10"
-                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  >
-                    <h3 className="text-md md:text-xl leading-tight md:leading-normal font-semibold text-gray-900 pr-4 group-hover:text-blue-600 transition-colors duration-300 group-hover:translate-x-1">
-                      {faq.question}
-                    </h3>
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                      {openIndex === index ? (
-                        <Minus className="w-4 h-4 text-blue-600 transition-transform duration-300 rotate-180" />
-                      ) : (
-                        <Plus className="w-4 h-4 text-blue-600 transition-transform duration-300" />
-                      )}
-                    </div>
-                  </button>
-                  
-                  <div className={`transition-all duration-500 ease-in-out ${
-                    openIndex === index 
-                      ? 'max-h-96 opacity-100' 
-                      : 'max-h-0 opacity-0'
-                  } overflow-hidden`}>
-                    <div className="px-6 md:px-8 pb-6 border-t border-gray-100 relative z-10">
-                      <p className="text-gray-600 leading-relaxed pt-4 text-sm md:text-lg">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  {/* Animated border - very subtle */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400/5 to-purple-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Floating particles - smaller and more subtle */}
-                  <div className="absolute top-2 right-2 w-1 h-1 bg-blue-400/40 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:animate-ping" />
-                  <div className="absolute bottom-2 left-2 w-1 h-1 bg-purple-400/40 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:animate-ping" style={{ animationDelay: '0.5s' }} />
-                </div>
-              );
-            };
-            
-            return <FAQItem key={index} />;
-          })}
+        <div className="space-y-3">
+          {faqs.map((faq, index) => (
+            <FAQItem
+              key={index}
+              faq={faq}
+              index={index}
+              openIndex={openIndex}
+              setOpenIndex={setOpenIndex}
+            />
+          ))}
         </div>
 
         <div className="mt-12 text-center">
